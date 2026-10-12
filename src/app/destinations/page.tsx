@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/destinations" },
 };
 
-// Alternating editorial rhythm: wide feature, then pairs of differently proportioned plates.
+// Alternating editorial rhythm: wide feature, then pairs of differently proportioned photographs.
 const ratios = ["aspect-[16/9]", "aspect-[4/5]", "aspect-[4/3]"];
 
 export default function DestinationsPage() {
