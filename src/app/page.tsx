@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { ApproachSection } from "@/components/home/ApproachSection";
-import { ExperiencesLedger } from "@/components/home/ExperiencesLedger";
-import { ExploreCostaRica } from "@/components/home/ExploreCostaRica";
+import { DiscoverJourneys } from "@/components/home/DiscoverJourneys";
+import { ExploreRegions } from "@/components/home/ExploreRegions";
 import { HomeHero } from "@/components/home/HomeHero";
-import { Introduction } from "@/components/home/Introduction";
-import { JournalSelection } from "@/components/home/JournalSelection";
-import { PlaceLine } from "@/components/home/PlaceLine";
-import { SignatureJourneys } from "@/components/home/SignatureJourneys";
-import { ClosingInvitation } from "@/components/sections/ClosingInvitation";
-import { PlanningSteps } from "@/components/sections/PlanningSteps";
+import { LatestJournal } from "@/components/home/LatestJournal";
+import { WaysToTravel } from "@/components/home/WaysToTravel";
+import { WildSide } from "@/components/home/WildSide";
+import { PlanBlock } from "@/components/sections/PlanBlock";
 import { JsonLd } from "@/components/ui/JsonLd";
+import { Plate } from "@/components/ui/Plate";
 import { absoluteUrl, site } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -26,31 +24,21 @@ export default function HomePage() {
         data={{
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", "@id": absoluteUrl("/#organization"), name: site.name, url: absoluteUrl("/"), description: site.description, logo: absoluteUrl("/brand/selvora-monogram.svg") },
+            { "@type": "Organization", "@id": absoluteUrl("/#organization"), name: site.name, url: absoluteUrl("/"), description: site.description },
             { "@type": "WebSite", "@id": absoluteUrl("/#website"), name: site.name, url: absoluteUrl("/"), publisher: { "@id": absoluteUrl("/#organization") } },
           ],
         }}
       />
       <HomeHero />
-      <PlaceLine />
-      <Introduction />
-      <SignatureJourneys />
-      <ExploreCostaRica />
-      <ExperiencesLedger />
-      <ApproachSection />
-      <PlanningSteps index="06" headingId="home-process-title" />
-      <JournalSelection />
-      <ClosingInvitation
-        title={
-          <>
-            Tell us what you <em className="italic font-normal">have in mind.</em>
-          </>
-        }
-        text="Dates, a list of ideas or a half-formed plan: any of them is a good place to start. We'll take it from there."
-        image="nicoya"
-        ctaLabel="Start planning"
-        secondary={{ label: "Or browse the journeys", href: "/journeys" }}
-      />
+      <div className="relative h-[70vh] min-h-[28rem] md:h-[94vh]">
+        <Plate image="monteverde" sizes="100vw" cover />
+      </div>
+      <ExploreRegions />
+      <DiscoverJourneys />
+      <WildSide />
+      <WaysToTravel />
+      <LatestJournal />
+      <PlanBlock />
     </>
   );
 }
