@@ -11,7 +11,7 @@ type Item = Pick<Destination, "slug" | "name" | "shortName" | "area" | "tagline"
 
 /**
  * Desktop: an index of regions with a sticky image that follows hover and focus.
- * Small screens: a horizontally scrolling strip of portrait plates.
+ * Small screens: a horizontally scrolling strip of portrait photographs.
  */
 export function DestinationIndex({ items }: { items: Item[] }) {
   const [active, setActive] = useState(0);

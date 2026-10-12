@@ -85,7 +85,7 @@ export const articles: Article[] = [
         type: "p",
         text: "The heaviest rain on the Pacific generally falls from around September to November. In the south especially, this can affect access, and some lodges close for part of that period.",
       },
-      { type: "image", image: "river", caption: "Green season: high rivers and the forest at its fullest." },
+      { type: "image", image: "river", caption: "Green season: waterfalls and rivers at full strength." },
       { type: "h2", text: "The regions that break the rules" },
       {
         type: "list",
@@ -178,7 +178,7 @@ export const articles: Article[] = [
           "Leave some afternoons unplanned. They're often the best part.",
         ],
       },
-      { type: "image", image: "lodge", caption: "Time in one place lets a trip breathe." },
+      { type: "image", image: "lodge", caption: "Where the rainforest meets the sea at Bahía Ballena. Time in one place lets a trip breathe." },
       { type: "h2", text: "Start with what matters most" },
       {
         type: "p",
@@ -226,7 +226,7 @@ export const articles: Article[] = [
           "On the water, choose operators who follow responsible whale- and dolphin-watching practice.",
         ],
       },
-      { type: "image", image: "canal", caption: "Quiet boats and early starts: the canals at their best." },
+      { type: "image", image: "canal", caption: "A three-toed sloth at Tortuguero. Patience, and a good guide, are what find them." },
       { type: "h2", text: "Managing expectations" },
       {
         type: "p",

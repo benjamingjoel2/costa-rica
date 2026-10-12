@@ -30,10 +30,10 @@ export default function TermsPage() {
         change, and wildlife sightings can never be guaranteed.
       </p>
       <h2>Images</h2>
-      <p>Images on this website are illustrative and do not depict specific properties, partners or services.</p>
+      <p>Photography on this website is sourced from Unsplash under the Unsplash License. It shows Costa Rica&rsquo;s landscapes and wildlife in general and does not depict specific properties, partners or services.</p>
       <h2>Intellectual property</h2>
       <p>
-        The text, design, illustrations and branding on this website belong to {site.name} or are used with permission, and may not be
+        The text, design and branding on this website belong to {site.name} or are used with permission, and may not be
         reproduced without consent.
       </p>
       <h2>Liability</h2>

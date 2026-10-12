@@ -21,8 +21,8 @@ export function ExperiencesLedger() {
               mix. We use these interests to decide where you go, how long you stay and who you spend your days with.
             </p>
             <div className="mt-12 grid grid-cols-5 gap-4">
-              <Plate image="waterfall" ratio="aspect-[3/4]" sizes="(min-width: 1024px) 18vw, 50vw" className="col-span-3" />
-              <Plate image="market" ratio="aspect-square" sizes="(min-width: 1024px) 12vw, 40vw" className="col-span-2 self-end" />
+              <Plate image="toucan" ratio="aspect-[3/4]" sizes="(min-width: 1024px) 18vw, 50vw" className="col-span-3" />
+              <Plate image="macaws" ratio="aspect-square" sizes="(min-width: 1024px) 12vw, 40vw" className="col-span-2 self-end" />
             </div>
           </div>
 

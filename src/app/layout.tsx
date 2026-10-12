@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: site.name,
     locale: "en_GB",
-    images: [{ url: site.ogImage, width: 1200, height: 630, alt: `${site.name}: ${site.descriptor}` }],
+    images: [{ url: site.ogImage, alt: `${site.name}: ${site.descriptor}` }],
   },
   twitter: { card: "summary_large_image" },
 };

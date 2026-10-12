@@ -247,7 +247,7 @@ export const journeys: Journey[] = [
     ],
     destinations: ["caribbean", "monteverde", "osa"],
     image: "canal",
-    secondaryImage: "bridge",
+    secondaryImage: "macaws",
     suggestedLength: "Around 12 to 14 nights",
     pace: "Full, with early mornings",
     idealFor: ["Birders", "Wildlife photographers", "Families with curious children", "Return visitors"],
