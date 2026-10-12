@@ -20,7 +20,7 @@ export const site = {
   // Add real profile URLs here when they exist; empty entries are never rendered.
   social: [] as { label: string; href: string }[],
   // Social sharing image: the homepage hero photograph.
-  ogImage: "https://unsplash.com/photos/ej_L8rJEjJg/download?w=1200",
+  ogImage: "/images/photos/heroCanopy.jpg",
 } as const;
 
 export const mainNav = [

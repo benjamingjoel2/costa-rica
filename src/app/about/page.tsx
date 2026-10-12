@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero image="macaws" kicker="One country, planned with care" title="About Selvora" short crumbs={[{ label: "About", href: "/about" }]} />
+      <PageHero image="slothBaby" kicker="One country, planned with care" title="About Selvora" short crumbs={[{ label: "About", href: "/about" }]} />
       <FeatureRows
         left={
           <>

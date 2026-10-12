@@ -48,7 +48,7 @@ export default async function ArticlePage({ params }: Props) {
           "@type": "Article",
           headline: article.title,
           description: article.seoDescription,
-          image: images[article.image].src,
+          image: absoluteUrl(images[article.image].src),
           mainEntityOfPage: absoluteUrl(`/journal/${article.slug}`),
           publisher: { "@type": "Organization", name: site.name, url: absoluteUrl("/") },
         }}

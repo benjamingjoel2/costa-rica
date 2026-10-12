@@ -51,7 +51,7 @@ npm run lint
    If you'd rather send email directly (Resend, Postmark, etc.), replace the `fetch` in `src/app/api/inquiry/route.ts`. The validation and the client stay as they are.
 2. **Site URL.** Set `NEXT_PUBLIC_SITE_URL` so canonical URLs, the sitemap and OG tags point at the real domain.
 3. **Contact details.** Set `NEXT_PUBLIC_CONTACT_EMAIL` if you want a public address shown. No phone number, address or social accounts are shown until real ones are added (`site.social` in `src/config/site.ts`).
-4. **Photography.** The site uses free Unsplash photos, served from Unsplash. Before launch, review each one and consider downloading them into `public/images/` (see `docs/IMAGERY.md`).
+4. **Photography.** The site uses free Pexels photos stored in `public/images/photos/`. Replace them with your own photography over time (see `docs/IMAGERY.md`).
 5. **Legal pages.** `/privacy` and `/terms` are drafts with bracketed gaps and a visible "Draft for review" notice. Complete them with legal advice, then remove the notice in `src/components/legal/LegalPage.tsx`.
 6. **About/team.** Add real founder or team information when available (see `docs/CONTENT.md`).
 7. **Analytics.** None is installed. If you add it, update the privacy policy and consider consent requirements.
