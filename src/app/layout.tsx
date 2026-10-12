@@ -1,22 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { IBM_Plex_Mono, Inter_Tight, Yellowtail } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { RevealObserver } from "@/components/ui/RevealObserver";
 import { site } from "@/config/site";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
+const grotesk = Inter_Tight({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  variable: "--font-grotesk",
   display: "swap",
 });
 
-const manrope = Manrope({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  display: "swap",
+});
+
+const yellowtail = Yellowtail({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-yellowtail",
   display: "swap",
 });
 
@@ -38,12 +45,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#173D32",
+  themeColor: "#222222",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${grotesk.variable} ${plexMono.variable} ${yellowtail.variable}`} suppressHydrationWarning>
       <head>
         {/* Enables reveal-on-scroll styles only when JavaScript is running. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

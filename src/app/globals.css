@@ -2,39 +2,37 @@
 
 /* ---------------------------------------------------------------------------
    Selvora design tokens
-   Ivory and natural imagery carry most pages; forest and charcoal provide
-   contrast; terracotta is a small accent (the point in the wordmark, rules,
-   markers) and never a large field of colour.
+   A crisp white canvas, near-black ink and thin rules. Headlines are built
+   from individually boxed words; labels and buttons are set in a mono face.
+   Forest green and sage are used as full-width colour blocks; terracotta
+   is the hand-drawn accent.
 --------------------------------------------------------------------------- */
 @theme {
+  --color-ink: #222222;
+  --color-white: #ffffff;
+  --color-ivory: #ffffff;
+  --color-paper: #efeeea;
+  --color-night: #232323;
+  --color-charcoal: #222222;
+  --color-stone: #5a5a5a;
   --color-forest: #173d32;
   --color-forest-deep: #0f2a22;
-  --color-forest-soft: #2c5546;
-  --color-ivory: #f3efe5;
-  --color-paper: #ebe5d7;
-  --color-charcoal: #252923;
-  --color-stone: #5f645a;
-  --color-terra: #b46e4b;
-  --color-terra-ink: #8f4e30;
   --color-sage: #d8e5d9;
   --color-sage-deep: #b9cfbd;
-  --color-line: #252923;
+  --color-terra: #b46e4b;
+  --color-terra-ink: #8f4e30;
 
-  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-  --font-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-grotesk), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-grotesk), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --font-script: var(--font-yellowtail), "Yellowtail", cursive;
 
-  --text-display-xl: clamp(3.1rem, 1.6rem + 6.2vw, 8rem);
-  --text-display-xl--line-height: 0.94;
-  --text-display-l: clamp(2.5rem, 1.6rem + 3.6vw, 5.25rem);
-  --text-display-l--line-height: 1;
-  --text-display-m: clamp(2rem, 1.5rem + 2vw, 3.5rem);
-  --text-display-m--line-height: 1.04;
-  --text-display-s: clamp(1.55rem, 1.3rem + 0.8vw, 2.1rem);
-  --text-display-s--line-height: 1.12;
-  --text-lead: clamp(1.2rem, 1.05rem + 0.55vw, 1.55rem);
-  --text-lead--line-height: 1.45;
-  --text-label: 0.72rem;
-  --text-label--line-height: 1.3;
+  --text-box-xl: clamp(3.2rem, 1.4rem + 7.4vw, 8.4rem);
+  --text-box-l: clamp(2.6rem, 1.5rem + 4.4vw, 6.4rem);
+  --text-box-m: clamp(2.1rem, 1.5rem + 2.4vw, 4.1rem);
+  --text-box-s: clamp(1.55rem, 1.3rem + 0.9vw, 2.15rem);
+  --text-lead: clamp(1.1rem, 1rem + 0.35vw, 1.3rem);
+  --text-lead--line-height: 1.32;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -42,22 +40,23 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 9rem;
   }
 
   body {
-    background: var(--color-ivory);
-    color: var(--color-charcoal);
+    background: var(--color-white);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
-    line-height: 1.65;
+    line-height: 1.4;
+    font-weight: 450;
+    letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
     background: var(--color-sage);
-    color: var(--color-forest-deep);
+    color: var(--color-ink);
   }
 
   :focus-visible {
@@ -69,22 +68,12 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-display);
     font-weight: 500;
-    letter-spacing: -0.01em;
-    text-wrap: balance;
+    letter-spacing: -0.045em;
   }
 
   p {
     text-wrap: pretty;
-  }
-
-  /* Cormorant's default figures are old-style; numbers read better lining. */
-  h1,
-  h2,
-  h3,
-  .font-display {
-    font-variant-numeric: lining-nums;
   }
 }
 
@@ -92,48 +81,54 @@
   /* Horizontal frame shared by every section. */
   .frame {
     width: 100%;
-    max-width: 92rem;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: 0.75rem;
   }
   @media (min-width: 768px) {
     .frame {
-      padding-inline: 2.5rem;
-    }
-  }
-  @media (min-width: 1280px) {
-    .frame {
-      padding-inline: 4rem;
+      padding-inline: 2rem;
     }
   }
 
-  .label {
-    font-family: var(--font-sans);
-    font-size: var(--text-label);
-    line-height: var(--text-label--line-height);
-    font-weight: 600;
-    letter-spacing: 0.18em;
+  /* Small uppercase mono text used for nav, labels, meta and buttons. */
+  .mono {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
+  }
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* A word sitting in its own bordered box, the core headline device. */
+  .boxword {
+    display: inline-block;
+    border: 1px solid var(--color-ink);
+    background: var(--color-white);
+    color: var(--color-ink);
+    padding: 0.02em 0.09em 0.06em;
+    margin: 0 -1px -1px 0;
+    line-height: 0.98;
   }
 
   /* Long-form reading text for journal articles and legal pages. */
   .prose-selvora {
     max-width: 40rem;
-    font-size: 1.125rem;
-    line-height: 1.75;
+    font-size: 1.15rem;
+    line-height: 1.55;
   }
   .prose-selvora > * + * {
-    margin-top: 1.25em;
+    margin-top: 1.1em;
   }
   .prose-selvora h2 {
-    font-size: var(--text-display-s);
-    line-height: var(--text-display-s--line-height);
-    margin-top: 2.2em;
-    color: var(--color-forest);
-  }
-  .prose-selvora h3 {
-    font-size: 1.4rem;
-    margin-top: 1.8em;
+    font-size: var(--text-box-s);
+    line-height: 1.05;
+    margin-top: 2em;
   }
   .prose-selvora ul {
     list-style: none;
@@ -144,21 +139,27 @@
     padding-left: 1.5rem;
   }
   .prose-selvora ul li + li {
-    margin-top: 0.6em;
+    margin-top: 0.5em;
   }
   .prose-selvora ul li::before {
-    content: "";
+    content: "→";
     position: absolute;
     left: 0;
-    top: 0.8em;
-    width: 0.65rem;
-    height: 1px;
-    background: var(--color-terra);
+    top: 0;
+    color: var(--color-terra);
   }
   .prose-selvora a {
     text-decoration: underline;
-    text-decoration-color: var(--color-terra);
     text-underline-offset: 0.2em;
+  }
+
+  /* Horizontal scroller used by the carousels. */
+  .scroller {
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+  }
+  .scroller::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -169,8 +170,8 @@
     opacity: 0;
     transform: translateY(18px);
     transition:
-      opacity 0.9s var(--ease-out-soft),
-      transform 0.9s var(--ease-out-soft);
+      opacity 0.8s var(--ease-out-soft),
+      transform 0.8s var(--ease-out-soft);
     transition-delay: var(--reveal-delay, 0ms);
   }
   .js [data-reveal][data-visible] {

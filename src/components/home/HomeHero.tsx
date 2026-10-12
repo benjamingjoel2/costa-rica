@@ -1,32 +1,38 @@
+import Link from "next/link";
+import { BoxHeading } from "@/components/kit/BoxHeading";
+import { CarouselControls } from "@/components/kit/Carousel";
 import { Plate } from "@/components/ui/Plate";
-import { ArrowLink } from "@/components/ui/ArrowLink";
-import { ButtonLink } from "@/components/ui/ButtonLink";
-import { planHref, site } from "@/config/site";
+import { journeys } from "@/content/journeys";
+import { pad, regionNames } from "@/lib/content";
 
 export function HomeHero() {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-forest-deep text-ivory">
-      <Plate image="heroCanopy" priority sizes="100vw" cover className="-z-10" imgClassName="scale-[1.02]" />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-forest-deep/90 via-forest-deep/35 to-forest-deep/10" />
-      <div aria-hidden className="absolute inset-y-0 left-0 -z-10 w-2/3 bg-gradient-to-r from-forest-deep/45 to-transparent" />
+    <section aria-labelledby="hero-title" className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-white">
+      <Plate image="heroCanopy" priority sizes="100vw" cover className="-z-10" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/20 to-black/10" />
 
-      <div className="frame pb-14 pt-36 md:pb-20 lg:pb-24">
-        <p className="label text-ivory/85">{site.descriptor}</p>
-        <h1 id="hero-title" className="mt-6 max-w-[14ch] text-display-xl text-ivory">
-          Costa Rica, <em className="font-normal italic">on your own terms.</em>
-        </h1>
-        <div className="mt-8 grid gap-8 md:mt-10 md:grid-cols-12 md:items-end">
-          <p className="max-w-xl text-lead text-ivory/90 md:col-span-7 lg:col-span-6">
-            Journeys through rainforest, cloud forest and two very different coastlines, planned around the way you like to travel.
-          </p>
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 md:col-span-5 md:justify-end lg:col-span-6">
-            <ButtonLink href={planHref} variant="ivory">
-              Plan your trip
-            </ButtonLink>
-            <ArrowLink href="/journeys" tone="light">
-              Explore the journeys
-            </ArrowLink>
-          </div>
+      <div className="frame pb-6 pt-48">
+        <BoxHeading as="h1" id="hero-title" text="Meet Costa Rica" size="xl" />
+        <p className="mono mt-4 max-w-md text-[0.8rem] text-white/90">Tailor-made journeys through rainforest, cloud forest, volcanoes and two coastlines.</p>
+      </div>
+
+      <div className="frame pb-5">
+        <div className="flex items-center gap-6">
+          <ul id="hero-strip" className="scroller flex flex-1 gap-5 overflow-x-auto">
+            {journeys.map((j, i) => (
+              <li key={j.slug} className="w-[15.5rem] shrink-0 snap-start border-t border-white/40 pt-3">
+                <Link href={`/journeys/${j.slug}`} className="group grid grid-cols-[6rem_1fr] gap-3">
+                  <Plate image={j.image} ratio="aspect-[3/2]" sizes="6rem" imgClassName="transition-transform group-hover:scale-105" />
+                  <span className="mono text-[0.72rem] leading-snug">
+                    <span className="block">{pad(i + 1)}</span>
+                    <span className="mt-3 block group-hover:underline">{j.title}</span>
+                    <span className="block text-white/60">{regionNames(j).join(", ")}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <CarouselControls targetId="hero-strip" className="hidden md:flex" />
         </div>
       </div>
     </section>

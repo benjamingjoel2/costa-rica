@@ -1,23 +1,20 @@
-import Link from "next/link";
-import { ButtonLink } from "@/components/ui/ButtonLink";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { BoxButton } from "@/components/kit/BoxButton";
+import { BoxHeading } from "@/components/kit/BoxHeading";
+import { DarkChip } from "@/components/kit/Tag";
+import { Doodle } from "@/components/kit/Doodle";
 
 export default function NotFound() {
   return (
-    <section className="frame flex min-h-[80svh] flex-col justify-center pb-24 pt-36">
-      <Eyebrow>Page not found</Eyebrow>
-      <h1 className="mt-8 max-w-3xl text-display-l text-forest">
-        This path doesn&rsquo;t lead <em className="italic font-normal">anywhere.</em>
-      </h1>
-      <p className="mt-6 max-w-xl text-stone">The page you were looking for has moved or never existed. These are good places to pick up the trail.</p>
-      <div className="mt-10 flex flex-wrap items-center gap-6">
-        <ButtonLink href="/journeys">Explore the journeys</ButtonLink>
-        <Link href="/destinations" className="font-semibold text-forest underline decoration-terra underline-offset-4">
-          Destination guides
-        </Link>
-        <Link href="/plan" className="font-semibold text-forest underline decoration-terra underline-offset-4">
+    <section className="frame flex min-h-[85svh] flex-col justify-center pb-16 pt-40">
+      <DarkChip>Page not found</DarkChip>
+      <BoxHeading as="h1" text="This Path Doesn't Lead Anywhere" size="l" className="mt-1.5" />
+      <Doodle name="binoculars" className="my-10 h-28 w-28" />
+      <div className="flex flex-wrap gap-4">
+        <BoxButton href="/journeys">Explore the journeys</BoxButton>
+        <BoxButton href="/destinations">Destinations</BoxButton>
+        <BoxButton href="/plan" dark>
           Plan your trip
-        </Link>
+        </BoxButton>
       </div>
     </section>
   );
