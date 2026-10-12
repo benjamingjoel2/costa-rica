@@ -1,0 +1,108 @@
+import type { Experience } from "./types";
+
+export const experiences: Experience[] = [
+  {
+    slug: "wildlife",
+    title: "Wildlife and biodiversity",
+    phrase: "for the wildlife",
+    summary: "Sloths and toucans are only the beginning. Plan around the habitats, seasons and hours when animals are most active.",
+    body: [
+      "Costa Rica packs an extraordinary range of habitats into a small country, and each holds different animals. Monkeys and sloths in the coastal forests, quetzals in the cloud forest, nesting turtles on both coasts, humpback whales off the south Pacific.",
+      "The difference between glimpsing wildlife and really seeing it usually comes down to three things: being in the right habitat, being out at the right time of day, and being with someone who knows what to look for.",
+    ],
+    image: "osa",
+    destinations: ["osa", "caribbean", "manuel-antonio", "monteverde"],
+    journeys: ["a-naturalists-costa-rica", "the-wild-south"],
+  },
+  {
+    slug: "forests",
+    title: "Rainforest and cloud forest",
+    phrase: "for the forest",
+    summary: "From steamy lowland rainforest to cool, moss-hung cloud forest: different worlds, often only a few hours apart.",
+    body: [
+      "Lowland rainforest is hot, tall and loud; cloud forest is cool, dripping and close. Experiencing both, and the changes in between as you climb, is one of the great pleasures of travelling here.",
+      "Canopy bridges, guided walks and night walks each reveal a different layer of the same forest.",
+    ],
+    image: "monteverde",
+    destinations: ["monteverde", "osa", "arenal"],
+    journeys: ["volcanoes-and-cloud-forest", "rainforest-to-the-pacific"],
+  },
+  {
+    slug: "volcanoes",
+    title: "Volcanoes and hot springs",
+    phrase: "for the volcanoes",
+    summary: "Walk old lava flows, watch mud pots bubble and finish the day in water warmed by the earth.",
+    body: [
+      "Costa Rica sits on a chain of volcanoes, and several can be explored on foot. Arenal's lava flows, Rincón de la Vieja's fumaroles and the mineral-blue Río Celeste each show a different side of the same restless geology.",
+      "The reward at the end of the day is thermal water, from landscaped pools to simpler springs in the forest.",
+    ],
+    image: "hotSprings",
+    destinations: ["arenal", "guanacaste"],
+    journeys: ["volcanoes-and-cloud-forest"],
+  },
+  {
+    slug: "coast",
+    title: "Coastal escapes",
+    phrase: "for the coast",
+    summary: "Sheltered bays, surf towns, wild Pacific beaches and the Caribbean's slower shore. Choose the coast that suits you.",
+    body: [
+      "Costa Rica's two coastlines are very different. The Pacific ranges from the dry, sunny bays of Guanacaste to the surf towns of Nicoya and the wild beaches of the Osa. The Caribbean is quieter, greener and shaped by its own culture.",
+      "We help you choose not only which coast, but which stretch of it, based on the season, the sea conditions and the kind of days you want.",
+    ],
+    image: "nicoya",
+    destinations: ["guanacaste", "nicoya", "manuel-antonio", "caribbean"],
+    journeys: ["slow-days-on-nicoya", "rainforest-to-the-pacific"],
+  },
+  {
+    slug: "food-and-culture",
+    title: "Food and local culture",
+    phrase: "for the table",
+    summary: "Coffee in the Central Valley, Caribbean cooking on the east coast, and markets and small kitchens everywhere in between.",
+    body: [
+      "Costa Rican food is straightforward and generous: gallo pinto at breakfast, a casado at lunch, tropical fruit in abundance. On the Caribbean coast, coconut, spice and Afro-Caribbean tradition change the picture entirely.",
+      "Visits to coffee and cacao farms, cooking with local families and time in small markets are some of the most direct ways to understand the places you're travelling through.",
+    ],
+    image: "market",
+    destinations: ["caribbean", "monteverde", "nicoya"],
+    journeys: ["a-naturalists-costa-rica", "slow-days-on-nicoya"],
+  },
+  {
+    slug: "active",
+    title: "Hiking and active adventures",
+    phrase: "for the trail",
+    summary: "Volcano trails, river days, surf and kayaking, matched to your fitness rather than to a tour operator's schedule.",
+    body: [
+      "Costa Rica is an outdoor country. Depending on the region and your appetite, days might include volcano and waterfall hikes, white-water rafting, surfing, sea kayaking or snorkelling.",
+      "We plan activity levels honestly, so that a demanding day is followed by an easier one, and nobody spends their holiday exhausted.",
+    ],
+    image: "trail",
+    destinations: ["arenal", "guanacaste", "osa"],
+    journeys: ["volcanoes-and-cloud-forest", "the-wild-south"],
+  },
+  {
+    slug: "private-guiding",
+    title: "Private guiding",
+    phrase: "with a guide",
+    summary: "A good naturalist guide can change everything you see. Where it adds most, we build days around one.",
+    body: [
+      "Costa Rica's naturalist guides are a large part of what makes travelling here rewarding. A guide who knows the calls, carries a spotting scope and sets the pace to your group will show you things you would otherwise walk straight past.",
+      "Private guiding isn't necessary everywhere. We suggest it where it genuinely makes a difference, such as in Corcovado, in the cloud forest and on early-morning birding walks.",
+    ],
+    image: "bridge",
+    destinations: ["osa", "monteverde", "manuel-antonio"],
+    journeys: ["a-naturalists-costa-rica", "the-wild-south"],
+  },
+  {
+    slug: "slow-travel",
+    title: "Exceptional stays and slower travel",
+    phrase: "for the time itself",
+    summary: "Fewer places, longer stays and somewhere to stay that adds to the experience rather than just housing it.",
+    body: [
+      "Some of the most memorable moments of a trip happen when nothing is scheduled: a long breakfast on a terrace above the forest, an afternoon with nowhere to be.",
+      "We'll help you choose where to slow down, and find places to stay with a sense of place, whether that's a remote eco-lodge, a small hotel run with care or a private villa above the sea.",
+    ],
+    image: "lodge",
+    destinations: ["nicoya", "osa", "arenal"],
+    journeys: ["slow-days-on-nicoya", "rainforest-to-the-pacific"],
+  },
+];
