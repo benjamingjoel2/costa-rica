@@ -26,7 +26,7 @@ const photo = (key: string, pexelsId: number, width: number, height: number, alt
 });
 
 export const images = {
-  heroCanopy: photo("heroCanopy", 13068955, 2000, 1334, "Arenal Volcano under towering white clouds, rising above forest and a calm lake", "50% 78%"),
+  heroCanopy: photo("heroArenal", 923228, 2400, 1350, "Arenal Volcano at dusk with a glowing cloud cap, above dark forest and Lake Arenal", "55% 45%"),
   arenal: photo("arenal", 19344663, 1333, 2000, "The cone of Arenal Volcano above dense green forest", "50% 40%"),
   monteverde: photo("monteverde", 18585029, 2000, 1334, "A suspension bridge disappearing into mist in the cloud forest"),
   bridge: photo("bridge", 16806198, 1333, 2000, "A red hanging bridge leading through tall cloud forest in Monteverde"),
