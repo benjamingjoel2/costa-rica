@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Selvora design tokens
+   A crisp white canvas, near-black ink and thin rules. Headlines are built
+   from individually boxed words; labels and buttons are set in a mono face.
+   Forest green and sage are used as full-width colour blocks; terracotta
+   is the hand-drawn accent.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #222222;
+  --color-white: #ffffff;
+  --color-ivory: #ffffff;
+  --color-paper: #efeeea;
+  --color-night: #232323;
+  --color-charcoal: #222222;
+  --color-stone: #5a5a5a;
+  --color-forest: #173d32;
+  --color-forest-deep: #0f2a22;
+  --color-sage: #d8e5d9;
+  --color-sage-deep: #b9cfbd;
+  --color-terra: #b46e4b;
+  --color-terra-ink: #8f4e30;
+
+  --font-sans: var(--font-grotesk), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-grotesk), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --font-script: var(--font-yellowtail), "Yellowtail", cursive;
+
+  --text-box-xl: clamp(3.2rem, 1.4rem + 7.4vw, 8.4rem);
+  --text-box-l: clamp(2.6rem, 1.5rem + 4.4vw, 6.4rem);
+  --text-box-m: clamp(2.1rem, 1.5rem + 2.4vw, 4.1rem);
+  --text-box-s: clamp(1.55rem, 1.3rem + 0.9vw, 2.15rem);
+  --text-lead: clamp(1.1rem, 1rem + 0.35vw, 1.3rem);
+  --text-lead--line-height: 1.32;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 9rem;
+  }
+
+  body {
+    background: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    font-weight: 450;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-sage);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terra);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+    letter-spacing: -0.045em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Horizontal frame shared by every section. */
+  .frame {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 0.75rem;
+  }
+  @media (min-width: 768px) {
+    .frame {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Small uppercase mono text used for nav, labels, meta and buttons. */
+  .mono {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* A word sitting in its own bordered box, the core headline device. */
+  .boxword {
+    display: inline-block;
+    border: 1px solid var(--color-ink);
+    background: var(--color-white);
+    color: var(--color-ink);
+    padding: 0.02em 0.09em 0.06em;
+    margin: 0 -1px -1px 0;
+    line-height: 0.98;
+  }
+
+  /* Long-form reading text for journal articles and legal pages. */
+  .prose-selvora {
+    max-width: 40rem;
+    font-size: 1.15rem;
+    line-height: 1.55;
+  }
+  .prose-selvora > * + * {
+    margin-top: 1.1em;
+  }
+  .prose-selvora h2 {
+    font-size: var(--text-box-s);
+    line-height: 1.05;
+    margin-top: 2em;
+  }
+  .prose-selvora ul {
+    list-style: none;
+    padding: 0;
+  }
+  .prose-selvora ul li {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  .prose-selvora ul li + li {
+    margin-top: 0.5em;
+  }
+  .prose-selvora ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-terra);
+  }
+  .prose-selvora a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  /* Horizontal scroller used by the carousels. */
+  .scroller {
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+  }
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Gentle reveal on scroll. Content is only hidden once JS has run, and never
+   for people who prefer reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.8s var(--ease-out-soft),
+      transform 0.8s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js [data-reveal][data-visible] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
