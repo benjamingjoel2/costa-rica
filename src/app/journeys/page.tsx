@@ -6,13 +6,13 @@ import { PhotoStatement } from "@/components/sections/PhotoStatement";
 import { PlanBlock } from "@/components/sections/PlanBlock";
 import { journeys } from "@/content/journeys";
 import { regionNames } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Tailor-made Costa Rica journeys",
-  description:
-    "Illustrative Costa Rica itineraries to start from: rainforest and Pacific coast, volcanoes and cloud forest, the Osa Peninsula, Nicoya and a wildlife route. Each one adapted to you.",
-  alternates: { canonical: "/journeys" },
-};
+  description: "Sample Costa Rica itineraries to start from: rainforest and Pacific, volcanoes and cloud forest, Osa, Nicoya and a wildlife route, each adapted to you.",
+  path: "/journeys",
+});
 
 export default function JourneysPage() {
   return (
