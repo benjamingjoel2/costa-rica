@@ -5,12 +5,13 @@ import { PageHero } from "@/components/sections/PageHero";
 import { PlanBlock } from "@/components/sections/PlanBlock";
 import { articles } from "@/content/journal";
 import { articleCard } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Journal: Costa Rica guides and planning notes",
   description: "Destination comparisons, seasonal advice and practical planning notes for travelling well in Costa Rica, from the Selvora journal.",
-  alternates: { canonical: "/journal" },
-};
+  path: "/journal",
+});
 
 export default function JournalPage() {
   return (

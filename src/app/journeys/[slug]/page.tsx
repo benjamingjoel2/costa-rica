@@ -9,9 +9,12 @@ import { InfoList } from "@/components/sections/InfoList";
 import { PageHero } from "@/components/sections/PageHero";
 import { PhotoStatement } from "@/components/sections/PhotoStatement";
 import { PlanBlock } from "@/components/sections/PlanBlock";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { absoluteUrl } from "@/config/site";
 import { getJourney, journeys } from "@/content/journeys";
 import { images } from "@/content/images";
 import { destinationCard, destinationsBySlug, journeyCard, regionNames } from "@/lib/content";
+import { organizationId, pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -23,12 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const journey = getJourney(slug);
   if (!journey) return {};
-  return {
-    title: `${journey.title}: a tailor-made Costa Rica journey`,
+  return pageMetadata({
+    // Kept short so search results show it in full.
+    title: journey.title.includes("Costa Rica") ? `${journey.title} itinerary` : `${journey.title}: Costa Rica itinerary`,
     description: journey.seoDescription,
-    alternates: { canonical: `/journeys/${journey.slug}` },
-    openGraph: { title: journey.title, description: journey.seoDescription, images: [{ url: images[journey.image].src, alt: images[journey.image].alt }] },
-  };
+    path: `/journeys/${journey.slug}`,
+    image: images[journey.image],
+  });
 }
 
 export default async function JourneyPage({ params }: Props) {
@@ -43,6 +47,26 @@ export default async function JourneyPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "TouristTrip",
+          name: journey.title,
+          description: journey.seoDescription,
+          url: absoluteUrl(`/journeys/${journey.slug}`),
+          image: absoluteUrl(images[journey.image].src),
+          touristType: journey.idealFor,
+          provider: { "@id": organizationId },
+          itinerary: {
+            "@type": "ItemList",
+            itemListElement: regions.map((r, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: { "@type": "TouristDestination", name: r.name, url: absoluteUrl(`/destinations/${r.slug}`) },
+            })),
+          },
+        }}
+      />
       <PageHero
         image={journey.image}
         kicker={journey.kicker}

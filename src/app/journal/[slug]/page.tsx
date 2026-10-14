@@ -14,6 +14,7 @@ import { images } from "@/content/images";
 import { articles, getArticle, readingMinutes } from "@/content/journal";
 import type { ArticleBlock } from "@/content/types";
 import { articleCard, destinationsBySlug, journeyCard, journeysBySlug } from "@/lib/content";
+import { organizationId, pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -25,12 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const a = getArticle(slug);
   if (!a) return {};
-  return {
-    title: a.title,
-    description: a.seoDescription,
-    alternates: { canonical: `/journal/${a.slug}` },
-    openGraph: { type: "article", title: a.title, description: a.seoDescription, images: [{ url: images[a.image].src, alt: images[a.image].alt }] },
-  };
+  return pageMetadata({ title: a.title, description: a.seoDescription, path: `/journal/${a.slug}`, image: images[a.image], type: "article" });
 }
 
 export default async function ArticlePage({ params }: Props) {
@@ -50,7 +46,10 @@ export default async function ArticlePage({ params }: Props) {
           description: article.seoDescription,
           image: absoluteUrl(images[article.image].src),
           mainEntityOfPage: absoluteUrl(`/journal/${article.slug}`),
-          publisher: { "@type": "Organization", name: site.name, url: absoluteUrl("/") },
+          articleSection: article.category,
+          inLanguage: "en",
+          author: { "@type": "Organization", "@id": organizationId, name: site.name, url: absoluteUrl("/") },
+          publisher: { "@type": "Organization", "@id": organizationId, name: site.name, url: absoluteUrl("/") },
         }}
       />
       <article>

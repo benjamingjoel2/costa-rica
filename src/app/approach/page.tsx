@@ -8,13 +8,13 @@ import { PhotoStatement } from "@/components/sections/PhotoStatement";
 import { PlanBlock } from "@/components/sections/PlanBlock";
 import { planningSteps, principles } from "@/content/approach";
 import { pad } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Our approach to planning",
-  description:
-    "How Selvora plans tailor-made Costa Rica trips: understanding what you want, balancing places and travel time, choosing places to stay and building a realistic itinerary.",
-  alternates: { canonical: "/approach" },
-};
+  description: "How Selvora plans tailor-made Costa Rica trips: what you want, balancing places and travel time, choosing where to stay and building a realistic itinerary.",
+  path: "/approach",
+});
 
 const proposalContents = [
   "A suggested route with the reasoning behind it",
