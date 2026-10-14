@@ -9,13 +9,14 @@ import { PlanBlock } from "@/components/sections/PlanBlock";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Plate } from "@/components/ui/Plate";
 import { absoluteUrl, site } from "@/config/site";
+import { organizationId, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: { absolute: `${site.name} | Tailor-made Costa Rica journeys` },
-  description:
-    "Private, tailor-made Costa Rica trips planned around you: rainforest and cloud forest, volcanoes, wildlife, the Pacific and Caribbean coasts, and exceptional places to stay.",
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = pageMetadata({
+  title: `${site.name} | Tailor-made Costa Rica journeys`,
+  absoluteTitle: true,
+  description: "Private, tailor-made Costa Rica trips planned around you: rainforest, cloud forest, volcanoes, wildlife and both coasts, with exceptional places to stay.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (
@@ -24,8 +25,19 @@ export default function HomePage() {
         data={{
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", "@id": absoluteUrl("/#organization"), name: site.name, url: absoluteUrl("/"), description: site.description },
-            { "@type": "WebSite", "@id": absoluteUrl("/#website"), name: site.name, url: absoluteUrl("/"), publisher: { "@id": absoluteUrl("/#organization") } },
+            {
+              "@type": "TravelAgency",
+              "@id": organizationId,
+              name: site.name,
+              url: absoluteUrl("/"),
+              description: site.description,
+              image: absoluteUrl(site.ogImage),
+              logo: absoluteUrl("/icon.svg"),
+              areaServed: { "@type": "Country", name: "Costa Rica" },
+              ...(site.contactEmail && { email: site.contactEmail }),
+              ...(site.social.length > 0 && { sameAs: site.social.map((s) => s.href) }),
+            },
+            { "@type": "WebSite", "@id": absoluteUrl("/#website"), name: site.name, url: absoluteUrl("/"), inLanguage: "en", publisher: { "@id": organizationId } },
           ],
         }}
       />

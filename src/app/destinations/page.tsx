@@ -5,13 +5,13 @@ import { PageHero } from "@/components/sections/PageHero";
 import { PhotoStatement } from "@/components/sections/PhotoStatement";
 import { PlanBlock } from "@/components/sections/PlanBlock";
 import { destinations } from "@/content/destinations";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Costa Rica destination guides",
-  description:
-    "Arenal, Monteverde, Guanacaste, the Nicoya Peninsula, the Central Pacific, the Osa Peninsula and the Caribbean coast: how Costa Rica's regions differ and how they fit together.",
-  alternates: { canonical: "/destinations" },
-};
+  description: "Arenal, Monteverde, Guanacaste, Nicoya, the Central Pacific, Osa and the Caribbean coast: how Costa Rica's regions differ and how they fit together.",
+  path: "/destinations",
+});
 
 export default function DestinationsPage() {
   return (

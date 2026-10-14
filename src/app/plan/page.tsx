@@ -10,12 +10,13 @@ import { destinations } from "@/content/destinations";
 import { journeys } from "@/content/journeys";
 import { site } from "@/config/site";
 import { pad } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Plan your trip to Costa Rica",
   description: "Tell us about the Costa Rica trip you have in mind: dates, who's travelling and what you enjoy. We'll reply to begin planning a tailor-made itinerary.",
-  alternates: { canonical: "/plan" },
-};
+  path: "/plan",
+});
 
 export default function PlanPage() {
   const journeyNames = Object.fromEntries(journeys.map((j) => [j.slug, j.title]));

@@ -8,13 +8,13 @@ import { PlanBlock } from "@/components/sections/PlanBlock";
 import { Plate } from "@/components/ui/Plate";
 import { experiences } from "@/content/experiences";
 import { destinationsBySlug, journeysBySlug } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Ways to experience Costa Rica",
-  description:
-    "Wildlife, rainforest and cloud forest, volcanoes and hot springs, coast, food and culture, active adventure, private guiding and slower travel: how interests shape a tailor-made Costa Rica trip.",
-  alternates: { canonical: "/experiences" },
-};
+  description: "Wildlife, rainforest, volcanoes and hot springs, coast, food, adventure and slower travel: how your interests shape a tailor-made Costa Rica trip.",
+  path: "/experiences",
+});
 
 const doodles = ["binoculars", "leaf", "volcano", "palm", "sun", "volcano", "toucan", "sun"] as const;
 
