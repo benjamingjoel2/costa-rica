@@ -8,10 +8,13 @@ import { InfoList } from "@/components/sections/InfoList";
 import { PageHero } from "@/components/sections/PageHero";
 import { PhotoStatement } from "@/components/sections/PhotoStatement";
 import { PlanBlock } from "@/components/sections/PlanBlock";
+import { JsonLd } from "@/components/ui/JsonLd";
+import { absoluteUrl } from "@/config/site";
 import { destinations, getDestination } from "@/content/destinations";
 import { images, type ImageKey } from "@/content/images";
 import { journeysForDestination } from "@/content/journeys";
 import { destinationCard, destinationsBySlug, journeyCard } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -23,12 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const d = getDestination(slug);
   if (!d) return {};
-  return {
-    title: `${d.name}: Costa Rica destination guide`,
+  return pageMetadata({
+    // Kept short so search results show it in full.
+    title: `${d.name}, Costa Rica`,
     description: d.seoDescription,
-    alternates: { canonical: `/destinations/${d.slug}` },
-    openGraph: { title: d.name, description: d.seoDescription, images: [{ url: images[d.image].src, alt: images[d.image].alt }] },
-  };
+    path: `/destinations/${d.slug}`,
+    image: images[d.image],
+  });
 }
 
 export default async function DestinationPage({ params }: Props) {
@@ -43,6 +47,17 @@ export default async function DestinationPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "TouristDestination",
+          name: d.name,
+          description: d.seoDescription,
+          url: absoluteUrl(`/destinations/${d.slug}`),
+          image: absoluteUrl(images[d.image].src),
+          containedInPlace: { "@type": "Country", name: "Costa Rica" },
+        }}
+      />
       <PageHero
         image={d.image}
         kicker={d.area}

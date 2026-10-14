@@ -6,13 +6,13 @@ import { PageHero } from "@/components/sections/PageHero";
 import { PhotoStatement } from "@/components/sections/PhotoStatement";
 import { PlanBlock } from "@/components/sections/PlanBlock";
 import { site } from "@/config/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Selvora",
-  description:
-    "Selvora is a tailor-made travel company focused on Costa Rica: personal planning for travellers who care about where they go, how they get there and how the days unfold.",
-  alternates: { canonical: "/about" },
-};
+  description: "Selvora is a tailor-made travel company focused on Costa Rica, with personal planning for travellers who care where they go and how the days unfold.",
+  path: "/about",
+});
 
 // Founder and team details are intentionally omitted until real biographies
 // are supplied. See docs/CONTENT.md for where to add them.
