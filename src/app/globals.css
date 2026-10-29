@@ -163,20 +163,22 @@
   }
 }
 
-/* Gentle reveal on scroll. Content is only hidden once JS has run, and never
-   for people who prefer reduced motion. */
-@media (prefers-reduced-motion: no-preference) {
-  .js [data-reveal] {
+/* Gentle reveal on scroll, driven by CSS alone so content never waits for
+   JavaScript. Browsers without scroll-driven animations simply show it, and
+   it never runs for people who prefer reduced motion. */
+@keyframes reveal {
+  from {
     opacity: 0;
     transform: translateY(18px);
-    transition:
-      opacity 0.8s var(--ease-out-soft),
-      transform 0.8s var(--ease-out-soft);
-    transition-delay: var(--reveal-delay, 0ms);
   }
-  .js [data-reveal][data-visible] {
-    opacity: 1;
-    transform: none;
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
   }
 }
 
