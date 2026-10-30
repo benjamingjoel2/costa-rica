@@ -48,7 +48,7 @@ export function ExploreRegions() {
                 <BoxButton href={r.href}>{r.cta}</BoxButton>
               </div>
               <div>
-                <Plate image={r.image} ratio="aspect-[8/5]" sizes="(min-width: 768px) 24vw, 100vw" />
+                <Plate image={r.image} ratio="aspect-[8/5]" sizes="(min-width: 768px) 24vw, (min-width: 640px) 45vw, 92vw" />
                 <p className="label mt-4">{r.text}</p>
               </div>
             </li>

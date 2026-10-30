@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Inter_Tight, Yellowtail } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { RevealObserver } from "@/components/ui/RevealObserver";
 import { site } from "@/config/site";
 import "./globals.css";
 
@@ -25,6 +24,8 @@ const yellowtail = Yellowtail({
   weight: "400",
   variable: "--font-yellowtail",
   display: "swap",
+  // Only used for one decorative word below the fold: don't compete with the hero for bandwidth.
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -55,16 +56,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${grotesk.variable} ${plexMono.variable} ${yellowtail.variable}`} suppressHydrationWarning>
-      <head>
-        {/* Enables reveal-on-scroll styles only when JavaScript is running. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-      </head>
+    <html lang="en" className={`${grotesk.variable} ${plexMono.variable} ${yellowtail.variable}`}>
       <body>
         <SiteHeader />
         <main id="main" tabIndex={-1} className="outline-none">{children}</main>
         <SiteFooter />
-        <RevealObserver />
       </body>
     </html>
   );

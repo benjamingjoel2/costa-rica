@@ -19,15 +19,15 @@ const links = [
     { label: "Our approach", href: "/approach" },
     { label: "Journal", href: "/journal" },
     { label: "Contact us", href: "/plan" },
-    { label: "Terms and conditions", href: "/terms" },
+    { label: "Booking terms", href: "/terms" },
     { label: "Privacy policy", href: "/privacy" },
+    { label: "Cookie policy", href: "/cookies" },
   ],
   [
     { label: "Journeys", href: "/journeys" },
     { label: "Destinations", href: "/destinations" },
     { label: "Experiences", href: "/experiences" },
     { label: "Plan your trip", href: planHref },
-    ...site.social.map((s) => ({ label: s.label, href: s.href })),
   ],
 ];
 

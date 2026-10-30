@@ -5,6 +5,8 @@
 // public/images/photos. They show Costa Rica's landscapes and wildlife in
 // general and are not presented as specific properties, partners or tours.
 
+import { imageMeta } from "./image-meta";
+
 export type ImageAsset = {
   src: string;
   alt: string;
@@ -14,6 +16,9 @@ export type ImageAsset = {
   position?: string;
   /** Source photo page, kept for credit and licensing records. */
   credit: string;
+  /** Pre-built AVIF widths in public/images/opt and a tiny blurred preview (from `npm run images`). */
+  widths: number[];
+  blurDataURL?: string;
 };
 
 const photo = (key: string, pexelsId: number, width: number, height: number, alt: string, position?: string): ImageAsset => ({
@@ -23,6 +28,8 @@ const photo = (key: string, pexelsId: number, width: number, height: number, alt
   height,
   position,
   credit: `https://www.pexels.com/photo/${pexelsId}/`,
+  widths: imageMeta[key]?.widths ?? [],
+  blurDataURL: imageMeta[key]?.blur,
 });
 
 export const images = {

@@ -50,9 +50,8 @@ npm run lint
    Until it's set, submissions return `503` and the form says plainly that the inquiry **was not sent**. It never shows a false success.
    If you'd rather send email directly (Resend, Postmark, etc.), replace the `fetch` in `src/app/api/inquiry/route.ts`. The validation and the client stay as they are.
 2. **Site URL and search engines.** Set `NEXT_PUBLIC_SITE_URL` so canonical URLs, the sitemap and OG tags point at the real domain (update it when you add a custom domain, then redeploy). Then verify the site in Google Search Console and Bing Webmaster Tools: choose the "HTML tag" method, put the code in `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION`, redeploy, and submit `/sitemap.xml`. Page titles and descriptions are set per page through `pageMetadata()` in `src/lib/seo.ts`; keep titles under about 60 characters and descriptions under about 160.
-3. **Contact details.** Set `NEXT_PUBLIC_CONTACT_EMAIL` if you want a public address shown. No phone number, address or social accounts are shown until real ones are added (`site.social` in `src/config/site.ts`).
+3. **Contact details.** The public address is selvora@tourground.com (`site.contactEmail` in `src/config/site.ts`). By owner decision the site shows no phone number, WhatsApp, social accounts, licence numbers, team section or testimonials. A business address (a premium coworking space in San José) still has to be chosen and added to `src/config/site.ts`, the footer, the legal pages and the JSON-LD.
 4. **Photography.** The site uses free Pexels photos stored in `public/images/photos/`. Replace them with your own photography over time (see `docs/IMAGERY.md`).
-5. **Legal pages.** `/privacy` and `/terms` are drafts with bracketed gaps and a visible "Draft for review" notice. Complete them with legal advice, then remove the notice in `src/components/legal/LegalPage.tsx`.
-6. **About/team.** Add real founder or team information when available (see `docs/CONTENT.md`).
-7. **Analytics.** None is installed. If you add it, update the privacy policy and consider consent requirements.
-8. **Content review.** Destination facts are kept general and well established, but have a Costa Rica specialist review them before launch.
+5. **Legal pages.** Booking terms (`/terms`), privacy policy (`/privacy`) and cookie policy (`/cookies`) are complete, with no gaps, but a lawyer should review them before launch.
+6. **Analytics.** None is installed. If you add it, update the privacy and cookie policies and ask for consent first.
+7. **Content review.** Destination facts are kept general and well established, but have a Costa Rica specialist review them before launch.
