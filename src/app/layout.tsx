@@ -24,6 +24,8 @@ const yellowtail = Yellowtail({
   weight: "400",
   variable: "--font-yellowtail",
   display: "swap",
+  // Only used for one decorative word below the fold: don't compete with the hero for bandwidth.
+  preload: false,
 });
 
 export const metadata: Metadata = {

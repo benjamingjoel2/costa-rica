@@ -5,7 +5,6 @@ function normaliseUrl(url: string) {
   return url.replace(/\/+$/, "");
 }
 
-const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || null;
 
 export const site = {
   name: "Selvora",
@@ -13,12 +12,10 @@ export const site = {
   description:
     "Selvora plans tailor-made journeys through Costa Rica: rainforest and cloud forest, volcanoes, wildlife and two very different coastlines, shaped around the way you like to travel.",
   // Used for canonical URLs, the sitemap and social cards. Set NEXT_PUBLIC_SITE_URL in production.
-  url: normaliseUrl(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  url: normaliseUrl(process.env.NEXT_PUBLIC_SITE_URL || "https://selvora.tourground.com"),
   locale: "en",
-  // Only shown when configured; see .env.example.
-  contactEmail,
-  // Add real profile URLs here when they exist; empty entries are never rendered.
-  social: [] as { label: string; href: string }[],
+  // The one public address for the brand ({brand}@tourground.com).
+  contactEmail: "selvora@tourground.com" as string | null,
   // Social sharing image: the homepage hero photograph.
   ogImage: "/images/photos/heroArenal.jpg",
 } as const;

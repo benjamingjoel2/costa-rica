@@ -35,7 +35,6 @@ export default function HomePage() {
               logo: absoluteUrl("/icon.svg"),
               areaServed: { "@type": "Country", name: "Costa Rica" },
               ...(site.contactEmail && { email: site.contactEmail }),
-              ...(site.social.length > 0 && { sameAs: site.social.map((s) => s.href) }),
             },
             { "@type": "WebSite", "@id": absoluteUrl("/#website"), name: site.name, url: absoluteUrl("/"), inLanguage: "en", publisher: { "@id": organizationId } },
           ],
