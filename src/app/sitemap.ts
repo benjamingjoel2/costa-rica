@@ -5,7 +5,7 @@ import { articles } from "@/content/journal";
 import { journeys } from "@/content/journeys";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["/", "/journeys", "/destinations", "/experiences", "/approach", "/about", "/journal", "/plan", "/privacy", "/terms"];
+  const pages = ["/", "/journeys", "/destinations", "/experiences", "/approach", "/about", "/journal", "/plan", "/privacy", "/terms", "/cookies"];
   return [
     ...pages.map((p) => ({ url: absoluteUrl(p), priority: p === "/" ? 1 : p === "/plan" ? 0.9 : 0.7 })),
     ...journeys.map((j) => ({ url: absoluteUrl(`/journeys/${j.slug}`), priority: 0.8 })),

@@ -7,6 +7,24 @@
    Forest green and sage are used as full-width colour blocks; terracotta
    is the hand-drawn accent.
 --------------------------------------------------------------------------- */
+/*
+ * Fallback for box headings while Inter Tight loads. next/font's own fallback
+ * matches Inter Tight's width at normal tracking, but box headings use -0.055em
+ * tracking, and where Arial is missing (Android, Linux) the generic sans ran
+ * about 7% wide: "Meet Costa Rica" wrapped onto an extra line on 390px phones,
+ * then jumped back when the font arrived (CLS ~0.19). This face matches the
+ * heading widths with Arial or its metric twin Liberation Sans.
+ * Metric overrides are scaled with size-adjust so the baseline stays put.
+ */
+@font-face {
+  font-family: "Inter Tight Box Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Helvetica"), local("Roboto");
+  size-adjust: 102%;
+  ascent-override: 94.98%;
+  descent-override: 23.65%;
+  line-gap-override: 0%;
+}
+
 @theme {
   --color-ink: #222222;
   --color-white: #ffffff;
@@ -107,6 +125,7 @@
 
   /* A word sitting in its own bordered box, the core headline device. */
   .boxword {
+    font-family: "Inter Tight", "Inter Tight Box Fallback", var(--font-sans);
     display: inline-block;
     border: 1px solid var(--color-ink);
     background: var(--color-white);
