@@ -10,11 +10,15 @@ import { planningSteps, principles } from "@/content/approach";
 import { pad } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Our approach to planning",
-  description: "How Selvora plans tailor-made Costa Rica trips: what you want, balancing places and travel time, choosing where to stay and building a realistic itinerary.",
-  path: "/approach",
-});
+import { t, setLocale } from "@/i18n/server";
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  setLocale((await params).locale);
+  return pageMetadata({
+    title: "Our approach to planning",
+    description: "How Selvora plans tailor-made Costa Rica trips: what you want, balancing places and travel time, choosing where to stay and building a realistic itinerary.",
+    path: "/approach",
+  });
+}
 
 const proposalContents = [
   "A suggested route with the reasoning behind it",
@@ -32,7 +36,8 @@ const faqs = [
   { q: "Can you plan for families or a special occasion?", a: "Tell us who's travelling, including children's ages, and what the trip is for. Pace, places to stay and activities all change with the group." },
 ];
 
-export default function ApproachPage() {
+export default async function ApproachPage({ params }: { params: Promise<{ locale: string }> }) {
+  setLocale((await params).locale);
   return (
     <>
       <PageHero image="hotSprings" kicker="Planning that starts with you" title="Our Approach" short crumbs={[{ label: "Our approach", href: "/approach" }]} />
@@ -43,8 +48,7 @@ export default function ApproachPage() {
         doodle="leaf"
         text={
           <p>
-            A tailor-made trip isn&rsquo;t a list of famous places. It&rsquo;s a set of choices about where to go, how to move between
-            them and how to spend each day, made with you rather than for you.
+            {t("A tailor-made trip isn’t a list of famous places. It’s a set of choices about where to go, how to move between them and how to spend each day, made with you rather than for you.")}
           </p>
         }
         items={principles.map((p) => ({ title: p.title, text: p.text }))}
@@ -53,18 +57,18 @@ export default function ApproachPage() {
       <section id="process" aria-labelledby="process-title" className="bg-forest text-white">
         <div className="frame py-12">
           <BoxHeading id="process-title" text="How Planning Works" size="l" squiggle={2} />
-          <p className="mono mt-4 max-w-lg text-[0.8rem] text-white/85">There is no online checkout and no fixed catalogue. Every journey begins with an inquiry.</p>
+          <p className="mono mt-4 max-w-lg text-[0.8rem] text-white/85">{t("There is no online checkout and no fixed catalogue. Every journey begins with an inquiry.")}</p>
           <ol className="mt-12 grid gap-px md:grid-cols-4">
             {planningSteps.map((s, i) => (
               <li key={s.title} className="bg-white p-5 text-ink" data-reveal>
-                <p className="mono text-[0.75rem]">{pad(i + 1)}</p>
-                <h3 className="mt-6 text-[1.7rem] font-medium leading-[1.02] tracking-[-0.05em]">{s.title}</h3>
-                <p className="label mt-4 border-t border-ink pt-3">{s.text}</p>
+                <p className="mono text-[0.75rem]">{t(pad(i + 1))}</p>
+                <h3 className="mt-6 text-[1.7rem] font-medium leading-[1.02] tracking-[-0.05em]">{t(s.title)}</h3>
+                <p className="label mt-4 border-t border-ink pt-3">{t(s.text)}</p>
               </li>
             ))}
           </ol>
           <BoxButton href="/plan" className="mt-8">
-            Tell us about your trip
+            {t("Tell us about your trip")}
           </BoxButton>
         </div>
       </section>
@@ -74,8 +78,7 @@ export default function ApproachPage() {
         doodle="sun"
         text={
           <p>
-            Your proposal is a considered plan, written for you. We explain why we&rsquo;ve suggested each place, so it&rsquo;s easy to see
-            what to change. What you won&rsquo;t receive is a generic package with your name on it, or pressure to decide before you&rsquo;re ready.
+            {t("Your proposal is a considered plan, written for you. We explain why we’ve suggested each place, so it’s easy to see what to change. What you won’t receive is a generic package with your name on it, or pressure to decide before you’re ready.")}
           </p>
         }
         items={proposalContents.map((c, i) => ({ title: `Included ${pad(i + 1)}`, text: c }))}
@@ -93,12 +96,12 @@ export default function ApproachPage() {
             {faqs.map((f) => (
               <details key={f.q} className="group border-t border-ink last:border-b">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-4 text-[1.35rem] font-medium tracking-[-0.04em] [&::-webkit-details-marker]:hidden">
-                  {f.q}
+                  {t(f.q)}
                   <span aria-hidden className="mono flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink text-lg group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <p className="label pb-5 pr-10">{f.a}</p>
+                <p className="label pb-5 pr-10">{t(f.a)}</p>
               </details>
             ))}
           </div>

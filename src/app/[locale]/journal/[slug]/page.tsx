@@ -16,13 +16,15 @@ import type { ArticleBlock } from "@/content/types";
 import { articleCard, destinationsBySlug, journeyCard, journeysBySlug } from "@/lib/content";
 import { organizationId, pageMetadata } from "@/lib/seo";
 
-type Props = { params: Promise<{ slug: string }> };
+import { t, setLocale } from "@/i18n/server";
+type Props = { params: Promise<{ slug: string; locale: string }> };
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  setLocale((await params).locale);
   const { slug } = await params;
   const a = getArticle(slug);
   if (!a) return {};
@@ -30,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
+  setLocale((await params).locale);
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) notFound();
@@ -62,10 +65,10 @@ export default async function ArticlePage({ params }: Props) {
             className="mb-6"
           />
           <DarkChip>
-            {article.category} · {readingMinutes(article)} min read
+            {t(article.category)} · {readingMinutes(article)}{t(" min read")}
           </DarkChip>
           <BoxHeading as="h1" text={article.title} size="l" className="mt-1.5 max-w-6xl" />
-          <p className="mt-6 max-w-2xl text-lead">{article.dek}</p>
+          <p className="mt-6 max-w-2xl text-lead">{t(article.dek)}</p>
           <Plate image={article.image} ratio="aspect-[16/8]" priority sizes="100vw" className="mt-8" />
         </header>
 
@@ -77,21 +80,21 @@ export default async function ArticlePage({ params }: Props) {
           </div>
           <aside className="md:border-l md:border-ink md:pl-5">
             <div className="md:sticky md:top-6">
-              <p className="label">Places in this piece</p>
+              <p className="label">{t("Places in this piece")}</p>
               <ul className="mt-3 border-t border-ink">
                 {places.map((p) => (
                   <li key={p.slug} className="border-b border-ink">
                     <Link href={`/destinations/${p.slug}`} className="block py-3 text-[1.8rem] font-medium leading-none tracking-[-0.05em] hover:text-forest">
-                      {p.name}
+                      {t(p.name)}
                     </Link>
                   </li>
                 ))}
               </ul>
               <div className="mt-8 bg-sage p-5">
                 <BoxHeading as="p" text="Planning A Trip?" size="s" />
-                <p className="label mt-4">Tell us your dates and interests, and we&rsquo;ll suggest a route.</p>
+                <p className="label mt-4">{t("Tell us your dates and interests, and we’ll suggest a route.")}</p>
                 <BoxButton href="/plan" className="mt-4">
-                  Plan your trip
+                  {t("Plan your trip")}
                 </BoxButton>
               </div>
             </div>
@@ -109,14 +112,14 @@ export default async function ArticlePage({ params }: Props) {
 function Block({ block }: { block: ArticleBlock }) {
   switch (block.type) {
     case "p":
-      return <p>{block.text}</p>;
+      return <p>{t(block.text)}</p>;
     case "h2":
-      return <h2>{block.text}</h2>;
+      return <h2>{t(block.text)}</h2>;
     case "list":
       return (
         <ul>
           {block.items.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item}>{t(item)}</li>
           ))}
         </ul>
       );
@@ -124,14 +127,14 @@ function Block({ block }: { block: ArticleBlock }) {
       return (
         <figure className="!my-10">
           <Plate image={block.image} ratio="aspect-[3/2]" sizes="(min-width: 768px) 48vw, 100vw" />
-          {block.caption && <figcaption className="label mt-3">{block.caption}</figcaption>}
+          {block.caption && <figcaption className="label mt-3">{t(block.caption)}</figcaption>}
         </figure>
       );
     case "aside":
       return (
         <aside className="!mt-10 border border-ink bg-paper p-5">
-          <p className="label">{block.title}</p>
-          <p className="mt-2 text-base">{block.text}</p>
+          <p className="label">{t(block.title)}</p>
+          <p className="mt-2 text-base">{t(block.text)}</p>
         </aside>
       );
   }

@@ -1,10 +1,11 @@
+import { t } from "@/i18n/server";
 /** Tiny boxed mono chips that sit on images and cards. */
 export function Tags({ items, className = "" }: { items: string[]; className?: string }) {
   return (
     <span className={`flex flex-col items-start ${className}`}>
-      {items.map((t) => (
-        <span key={t} className="mono -mt-px border border-ink bg-white px-1.5 py-0.5 text-[0.62rem] leading-tight text-ink">
-          {t}
+      {items.map((item) => (
+        <span key={item} className="mono -mt-px border border-ink bg-white px-1.5 py-0.5 text-[0.62rem] leading-tight text-ink">
+          {t(item)}
         </span>
       ))}
     </span>

@@ -5,6 +5,7 @@ import { CarouselControls } from "@/components/kit/Carousel";
 import { experiences } from "@/content/experiences";
 import { destinationsBySlug } from "@/lib/content";
 
+import { t } from "@/i18n/server";
 export function WaysToTravel() {
   return (
     <section aria-labelledby="ways-title" className="py-10">
@@ -12,7 +13,7 @@ export function WaysToTravel() {
         <div>
           <BoxHeading id="ways-title" text="Ways To Travel" size="m" />
           <BoxButton href="/experiences" className="mt-4">
-            View all
+            {t("View all")}
           </BoxButton>
           <CarouselControls targetId="ways-track" className="mt-6" />
         </div>

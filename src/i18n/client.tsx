@@ -13,7 +13,13 @@ export function I18nProvider({ messages, children }: { messages: Record<string, 
 
 export function useT() {
   const m = useContext(Messages);
-  return (s: string) => m[s] ?? s;
+  // Edge spaces from JSX text are kept; the dictionary is keyed by the trimmed text.
+  return <T,>(s: T): T => {
+    if (typeof s !== "string") return s;
+    const core = s.trim();
+    const v = m[core];
+    return (v === undefined ? s : s.slice(0, s.indexOf(core)) + v + s.slice(s.indexOf(core) + core.length)) as T;
+  };
 }
 
 export function useLocale(): Locale {

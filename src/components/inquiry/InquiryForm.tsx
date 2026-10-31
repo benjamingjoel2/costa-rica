@@ -1,5 +1,7 @@
 "use client";
 
+import { useT } from "@/i18n/client";
+
 import Link from "@/i18n/Link";
 import { useSearchParams } from "next/navigation";
 import { useId, useRef, useState } from "react";
@@ -26,10 +28,11 @@ type InquiryFormProps = {
 const FIELD_ORDER: (keyof InquiryInput)[] = ["name", "email", "dates", "duration", "adults", "children", "budget", "interests", "stay", "message"];
 
 export function InquiryForm({ journeyNames, destinationNames, contactEmail }: InquiryFormProps) {
+  const t = useT();
   const params = useSearchParams();
   const fromJourney = journeyNames[params.get("journey") ?? ""];
   const fromDestination = destinationNames[params.get("destination") ?? ""];
-  const startingPoint = fromJourney ? `Journey: ${fromJourney}` : fromDestination ? `Destination: ${fromDestination}` : "";
+  const startingPoint = fromJourney ? `${t("Journey:")} ${fromJourney}` : fromDestination ? `${t("Destination:")} ${fromDestination}` : "";
 
   const [values, setValues] = useState<InquiryInput>(() => emptyInquiry(startingPoint));
   const [errors, setErrors] = useState<InquiryErrors>({});
@@ -83,14 +86,13 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
   if (status === "sent") {
     return (
       <div ref={resultRef} tabIndex={-1} role="status" className="bg-forest p-8 text-ivory outline-none md:p-12">
-        <p className="label text-ivory/70">Inquiry received</p>
-        <h2 className="mt-4 text-display-m text-ivory">Thank you, {values.name.split(" ")[0]}.</h2>
+        <p className="label text-ivory/70">{t("Inquiry received")}</p>
+        <h2 className="mt-4 text-display-m text-ivory">{t("Thank you, ")}{t(values.name.split(" ")[0])}.</h2>
         <p className="mt-4 max-w-lg text-ivory/85">
-          Your inquiry has reached us. We&rsquo;ll reply to <strong className="font-semibold">{values.email}</strong> to start planning.
-          In the meantime, the journal has a few notes that may help.
+          {t("Your inquiry has reached us. We’ll reply to ")}<strong className="font-semibold">{t(values.email)}</strong>{t(" to start planning. In the meantime, the journal has a few notes that may help.")}
         </p>
         <Link href="/journal" className="mt-8 inline-block border-b border-terra pb-1 font-semibold">
-          Read the journal
+          {t("Read the journal")}
         </Link>
       </div>
     );
@@ -102,17 +104,17 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
   return (
     <form noValidate onSubmit={onSubmit} aria-describedby={id("intro")} className="space-y-14">
       <p id={id("intro")} className="sr-only">
-        Fields marked required must be completed. Everything else is optional.
+        {t("Fields marked required must be completed. Everything else is optional.")}
       </p>
 
       {errorList.length > 0 && (
         <div ref={summaryRef} tabIndex={-1} role="alert" className="border-l-2 border-terra bg-paper p-6 outline-none">
-          <p className="font-semibold text-terra-ink">Please check {errorList.length === 1 ? "one detail" : `${errorList.length} details`}:</p>
+          <p className="font-semibold text-terra-ink">{t("Please check ")}{errorList.length === 1 ? t("one detail") : t("{n} details").replace("{n}", String(errorList.length))}:</p>
           <ul className="mt-3 space-y-1 text-sm">
             {errorList.map((k) => (
               <li key={k}>
                 <a href={`#${id(k)}`} className="underline underline-offset-4">
-                  {errors[k]}
+                  {t(errors[k])}
                 </a>
               </li>
             ))}
@@ -123,19 +125,19 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
       {(status === "not_configured" || status === "failed") && (
         <div ref={resultRef} tabIndex={-1} role="alert" className="border-l-2 border-terra bg-paper p-6 outline-none">
           <p className="font-semibold text-terra-ink">
-            {status === "not_configured" ? "Your inquiry has not been sent." : "Something went wrong, and your inquiry has not been sent."}
+            {t(status === "not_configured" ? "Your inquiry has not been sent." : "Something went wrong, and your inquiry has not been sent.")}
           </p>
           <p className="mt-2 text-sm text-charcoal/85">
-            {status === "not_configured"
+            {t(status === "not_configured"
               ? "Online inquiries aren't connected yet on this site, so we couldn't receive your details."
-              : "Please try again in a moment. Your answers are still here."}{" "}
+              : "Please try again in a moment. Your answers are still here.")}{t(" ")}
             {mailto ? (
               <>
-                You can also{" "}
+                {t("You can also")}{t(" ")}
                 <a href={mailto} className="font-semibold underline underline-offset-4">
-                  send the same details by email
-                </a>{" "}
-                to {contactEmail}.
+                  {t("send the same details by email")}
+                </a>{t(" ")}
+                {t("to ")}{t(contactEmail)}.
               </>
             ) : status === "not_configured" ? (
               "Please check back soon."
@@ -147,18 +149,18 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
       {values.journey && (
         <div className="flex flex-wrap items-center justify-between gap-4 bg-sage px-5 py-4">
           <p className="text-sm">
-            <span className="label mr-3 text-forest">Starting point</span>
+            <span className="label mr-3 text-forest">{t("Starting point")}</span>
             {values.journey}
           </p>
           <button type="button" onClick={() => set("journey", "")} className="text-sm underline underline-offset-4">
-            Remove
+            {t("Remove")}
           </button>
         </div>
       )}
 
       {/* Honeypot: hidden from people and assistive tech. */}
       <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
-        <label htmlFor={id("website")}>Leave this field empty</label>
+        <label htmlFor={id("website")}>{t("Leave this field empty")}</label>
         <input id={id("website")} name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={(e) => set("website", e.target.value)} />
       </div>
 
@@ -201,8 +203,8 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
       <Fieldset index="3" legend="What you're looking for" hint="All optional, and all useful. There are no wrong answers.">
         <div className="space-y-10">
           <fieldset>
-            <legend className="mb-1 font-semibold">Interests</legend>
-            <p className="mb-4 text-sm text-stone">Choose as many as you like.</p>
+            <legend className="mb-1 font-semibold">{t("Interests")}</legend>
+            <p className="mb-4 text-sm text-stone">{t("Choose as many as you like.")}</p>
             <div className="flex flex-wrap gap-2">
               {interestOptions.map((o) => (
                 <Chip key={o} type="checkbox" name="interests" label={o} checked={values.interests.includes(o)} onChange={() => toggleInterest(o)} />
@@ -211,8 +213,8 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
           </fieldset>
 
           <fieldset>
-            <legend className="mb-1 font-semibold">Preferred places to stay</legend>
-            <p className="mb-4 text-sm text-stone">A rough preference helps us start in the right place.</p>
+            <legend className="mb-1 font-semibold">{t("Preferred places to stay")}</legend>
+            <p className="mb-4 text-sm text-stone">{t("A rough preference helps us start in the right place.")}</p>
             <div className="flex flex-wrap gap-2">
               {stayOptions.map((o) => (
                 <Chip key={o} type="radio" name={id("stay")} label={o} checked={values.stay === o} onChange={() => set("stay", o)} />
@@ -232,10 +234,10 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
 
           <div>
             <label htmlFor={id("message")} className="font-semibold">
-              Anything else we should know?
+              {t("Anything else we should know?")}
             </label>
             <p id={`${id("message")}-hint`} className="mt-1 text-sm text-stone">
-              Places you&rsquo;d love to see, a special occasion, children&rsquo;s ages, mobility needs, things you&rsquo;d rather avoid.
+              {t("Places you’d love to see, a special occasion, children’s ages, mobility needs, things you’d rather avoid.")}
             </p>
             <textarea
               id={id("message")}
@@ -246,7 +248,7 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
               aria-invalid={errors.message ? true : undefined}
               className={inputClass(Boolean(errors.message))}
             />
-            {errors.message && <FieldError id={`${id("message")}-error`}>{errors.message}</FieldError>}
+            {errors.message && <FieldError id={`${id("message")}-error`}>{t(errors.message)}</FieldError>}
           </div>
         </div>
       </Fieldset>
@@ -257,18 +259,18 @@ export function InquiryForm({ journeyNames, destinationNames, contactEmail }: In
           disabled={status === "submitting"}
           className="group inline-flex min-h-13 items-center justify-center gap-4 bg-forest px-8 py-4 font-semibold text-ivory transition-colors hover:bg-forest-deep disabled:cursor-wait disabled:opacity-70"
         >
-          {status === "submitting" ? "Sending your inquiry…" : "Send my inquiry"}
+          {t(status === "submitting" ? "Sending your inquiry…" : "Send my inquiry")}
         </button>
         <p className="text-sm text-stone">
-          We use these details only to reply to your inquiry. See our{" "}
+          {t("We use these details only to reply to your inquiry. See our")}{t(" ")}
           <Link href="/privacy" className="underline underline-offset-4">
-            privacy policy
+            {t("privacy policy")}
           </Link>
           .
         </p>
       </div>
       <p aria-live="polite" className="sr-only">
-        {status === "submitting" ? "Sending your inquiry" : ""}
+        {t(status === "submitting" ? "Sending your inquiry" : "")}
       </p>
     </form>
   );
@@ -297,15 +299,16 @@ function inputClass(invalid: boolean) {
 }
 
 function Fieldset({ index, legend, hint, children }: { index: string; legend: string; hint: string; children: React.ReactNode }) {
+  const t = useT();
   const headingId = useId();
   return (
     <div role="group" aria-labelledby={headingId} className="grid gap-6 md:grid-cols-[10rem_1fr] md:gap-10">
       <div>
-        <p className="label text-terra-ink">Step {index}</p>
+        <p className="label text-terra-ink">{t("Step ")}{t(index)}</p>
         <h2 id={headingId} className="mt-2 font-display text-[1.75rem] leading-tight text-forest">
-          {legend}
+          {t(legend)}
         </h2>
-        <p className="mt-2 text-sm text-stone">{hint}</p>
+        <p className="mt-2 text-sm text-stone">{t(hint)}</p>
       </div>
       <div>{children}</div>
     </div>
@@ -329,16 +332,17 @@ type TextFieldProps = {
 };
 
 function TextField({ id, label, value, onChange, error, hint, required, type = "text", ...rest }: TextFieldProps) {
+  const t = useT();
   const describedBy = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(" ") || undefined;
   return (
     <div>
       <label htmlFor={id} className="font-semibold">
-        {label}
-        {required && <span className="ml-2 text-sm font-normal text-stone">(required)</span>}
+        {t(label)}
+        {required && <span className="ml-2 text-sm font-normal text-stone">{t("(required)")}</span>}
       </label>
       {hint && (
         <p id={`${id}-hint`} className="mt-1 text-sm text-stone">
-          {hint}
+          {t(hint)}
         </p>
       )}
       <input
@@ -352,7 +356,7 @@ function TextField({ id, label, value, onChange, error, hint, required, type = "
         className={inputClass(Boolean(error))}
         {...rest}
       />
-      {error && <FieldError id={`${id}-error`}>{error}</FieldError>}
+      {error && <FieldError id={`${id}-error`}>{t(error)}</FieldError>}
     </div>
   );
 }
@@ -376,16 +380,17 @@ function SelectField({
   hint?: string;
   required?: boolean;
 }) {
+  const t = useT();
   const describedBy = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(" ") || undefined;
   return (
     <div>
       <label htmlFor={id} className="font-semibold">
-        {label}
-        {required && <span className="ml-2 text-sm font-normal text-stone">(required)</span>}
+        {t(label)}
+        {required && <span className="ml-2 text-sm font-normal text-stone">{t("(required)")}</span>}
       </label>
       {hint && (
         <p id={`${id}-hint`} className="mt-1 text-sm text-stone">
-          {hint}
+          {t(hint)}
         </p>
       )}
       <div className="relative">
@@ -398,10 +403,10 @@ function SelectField({
           aria-describedby={describedBy}
           className={`${inputClass(Boolean(error))} appearance-none pr-8`}
         >
-          <option value="">Choose one</option>
+          <option value="">{t("Choose one")}</option>
           {options.map((o) => (
             <option key={o} value={o}>
-              {o}
+              {t(o)}
             </option>
           ))}
         </select>
@@ -409,17 +414,18 @@ function SelectField({
           <path d="M1 1l5 5 5-5" />
         </svg>
       </div>
-      {error && <FieldError id={`${id}-error`}>{error}</FieldError>}
+      {error && <FieldError id={`${id}-error`}>{t(error)}</FieldError>}
     </div>
   );
 }
 
 function Chip({ type, name, label, checked, onChange }: { type: "checkbox" | "radio"; name: string; label: string; checked: boolean; onChange: () => void }) {
+  const t = useT();
   return (
     <label className="cursor-pointer">
       <input type={type} name={name} value={label} checked={checked} onChange={onChange} className="peer sr-only" />
       <span className="inline-flex min-h-11 items-center gap-2 border border-charcoal/25 px-4 py-2 text-[0.95rem] transition-colors peer-checked:border-forest peer-checked:bg-forest peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-terra hover:border-forest">
-        {label}
+        {t(label)}
       </span>
     </label>
   );

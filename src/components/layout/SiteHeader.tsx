@@ -160,7 +160,7 @@ function RegionPicker({ regions: destinations, open, setOpen, label, full = fals
         onClick={() => setOpen(!open)}
         className={`${box} mono flex h-11 items-center justify-between gap-6 px-3 text-[0.8rem] hover:bg-ink hover:text-white ${full ? "w-full justify-center" : "md:min-w-[10.5rem]"}`}
       >
-        {label}
+        {t(label)}
         <svg aria-hidden viewBox="0 0 12 16" className="h-3.5 w-3" fill="currentColor">
           <path d="M6 0a6 6 0 00-6 6c0 4.5 6 10 6 10s6-5.5 6-10a6 6 0 00-6-6zm0 8.2A2.2 2.2 0 116 3.8a2.2 2.2 0 010 4.4z" />
         </svg>
@@ -170,7 +170,7 @@ function RegionPicker({ regions: destinations, open, setOpen, label, full = fals
           {destinations.map((d) => (
             <li key={d.slug} className="border-b border-ink/15 last:border-0">
               <Link href={`/destinations/${d.slug}`} className="mono block whitespace-nowrap px-3 py-2.5 text-[0.8rem] hover:bg-ink hover:text-white">
-                {d.shortName}
+                {t(d.shortName)}
               </Link>
             </li>
           ))}
@@ -230,8 +230,8 @@ function MenuPanel({ regions: destinations, pathname, open, onClose, isActive }:
             {destinations.map((d) => (
               <li key={d.slug} className="border-b border-ink">
                 <Link href={`/destinations/${d.slug}`} className="flex items-baseline justify-between gap-4 py-3 text-2xl font-medium tracking-[-0.04em] hover:text-forest">
-                  {d.shortName}
-                  <span className="label text-stone">{d.area}</span>
+                  {t(d.shortName)}
+                  <span className="label text-stone">{t(d.area)}</span>
                 </Link>
               </li>
             ))}
@@ -256,6 +256,7 @@ function LangSwitch({ pathname, className = "" }: { pathname: string; className?
           {i > 0 && <span aria-hidden className="px-0.5 text-stone">·</span>}
           <NextLink
             href={localizeHref(l, pathname)}
+            prefetch={false}
             hrefLang={l}
             lang={l}
             title={localeNames[l]}

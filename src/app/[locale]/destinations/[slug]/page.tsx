@@ -16,13 +16,15 @@ import { journeysForDestination } from "@/content/journeys";
 import { destinationCard, destinationsBySlug, journeyCard } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
-type Props = { params: Promise<{ slug: string }> };
+import { t, setLocale } from "@/i18n/server";
+type Props = { params: Promise<{ slug: string; locale: string }> };
 
 export function generateStaticParams() {
   return destinations.map((d) => ({ slug: d.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  setLocale((await params).locale);
   const { slug } = await params;
   const d = getDestination(slug);
   if (!d) return {};
@@ -36,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function DestinationPage({ params }: Props) {
+  setLocale((await params).locale);
   const { slug } = await params;
   const d = getDestination(slug);
   if (!d) notFound();
@@ -82,12 +85,12 @@ export default async function DestinationPage({ params }: Props) {
               {d.landscapes.map((l) => (
                 <li key={l}>
                   <DarkChip>
-                    <span aria-hidden>✦</span> {l}
+                    <span aria-hidden>✦</span> {t(l)}
                   </DarkChip>
                 </li>
               ))}
             </ul>
-            <p className="mt-10 max-w-md text-lead">{d.lede}</p>
+            <p className="mt-10 max-w-md text-lead">{t(d.lede)}</p>
           </>
         }
         rows={d.chapters.map((c, i) => ({
@@ -104,7 +107,7 @@ export default async function DestinationPage({ params }: Props) {
         title="Is It Right For You?"
         squiggle={3}
         doodle={d.slug === "caribbean" || d.slug === "nicoya" ? "palm" : d.slug === "osa" || d.slug === "manuel-antonio" ? "binoculars" : "volcano"}
-        text={<p>{d.tagline} {d.summary}</p>}
+        text={<p>{t(d.tagline)} {t(d.summary)}</p>}
         items={[
           { title: "Who it suits", text: d.suits },
           { title: "Fitting it in", text: d.fit },

@@ -2,6 +2,7 @@ import Link from "@/i18n/Link";
 import { absoluteUrl } from "@/config/site";
 import { JsonLd } from "./JsonLd";
 
+import { t } from "@/i18n/server";
 type Crumb = { label: string; href: string };
 
 /** Visible breadcrumb trail plus matching BreadcrumbList structured data. */
@@ -9,16 +10,16 @@ export function Breadcrumbs({ items, tone = "dark", className = "" }: { items: C
   const all = [{ label: "Home", href: "/" }, ...items];
   return (
     <>
-      <nav aria-label="Breadcrumb" className={className}>
+      <nav aria-label={t("Breadcrumb")} className={className}>
         <ol className={`label flex flex-wrap items-center gap-x-2 gap-y-1 ${tone === "light" ? "text-ivory/80" : "text-stone"}`}>
           {all.map((c, i) => (
             <li key={c.href} className="flex items-center gap-2">
               {i > 0 && <span aria-hidden>/</span>}
               {i === all.length - 1 ? (
-                <span aria-current="page">{c.label}</span>
+                <span aria-current="page">{t(c.label)}</span>
               ) : (
                 <Link href={c.href} className="hover:underline underline-offset-4">
-                  {c.label}
+                  {t(c.label)}
                 </Link>
               )}
             </li>

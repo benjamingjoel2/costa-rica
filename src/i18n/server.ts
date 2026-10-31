@@ -25,7 +25,11 @@ export function getLocale(): Locale {
 const HAS_WORD = /\p{L}{2,}/u;
 
 export function translate(locale: Locale, s: string): string {
-  if (locale === "en" || !HAS_WORD.test(s)) return s;
+  if (locale === "en" || typeof s !== "string" || !HAS_WORD.test(s)) return s;
+  // JSX text keeps its edge spaces (" plans tailor-made…"); the dictionary is keyed by the trimmed text.
+  const lead = s.match(/^\s*/)![0];
+  const trail = s.slice(lead.length).match(/\s*$/)![0];
+  if (lead || trail) return lead + translate(locale, s.trim()) + trail;
   const v = dicts[locale][s];
   if (v === "=") return s;
   if (v) return v;
@@ -37,9 +41,9 @@ export function translate(locale: Locale, s: string): string {
   throw new Error(`Missing ${locale} translation for: ${JSON.stringify(s)} (add it to src/i18n/${locale}.json)`);
 }
 
-/** Translate a UI string into the current page's language. */
-export function t(s: string): string {
-  return translate(getLocale(), s);
+/** Translate a UI string into the current page's language. Non-strings pass through. */
+export function t<T>(s: T): T {
+  return (typeof s === "string" ? translate(getLocale(), s) : s) as T;
 }
 
 /** Like t(), with {name} placeholders filled after translating the template. */

@@ -8,16 +8,21 @@ import { PlanBlock } from "@/components/sections/PlanBlock";
 import { site } from "@/config/site";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "About Selvora",
-  description: "Selvora is a tailor-made travel company focused on Costa Rica, with personal planning for travellers who care where they go and how the days unfold.",
-  path: "/about",
-});
+import { t, setLocale } from "@/i18n/server";
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  setLocale((await params).locale);
+  return pageMetadata({
+    title: "About Selvora",
+    description: "Selvora is a tailor-made travel company focused on Costa Rica, with personal planning for travellers who care where they go and how the days unfold.",
+    path: "/about",
+  });
+}
 
 // Founder and team details are intentionally omitted until real biographies
 // are supplied. See docs/CONTENT.md for where to add them.
 
-export default function AboutPage() {
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+  setLocale((await params).locale);
   return (
     <>
       <PageHero image="slothBaby" kicker="One country, planned with care" title="About Selvora" short crumbs={[{ label: "About", href: "/about" }]} />
@@ -27,13 +32,10 @@ export default function AboutPage() {
             <BoxHeading text="A Small Country That Keeps On Unfolding" size="l" squiggle={4} />
             <div className="mt-10 max-w-md space-y-4 text-lead">
               <p>
-                {site.name} plans tailor-made journeys through Costa Rica, and only Costa Rica. Focusing on one country lets us go deeper
-                into its regions, seasons and places to stay.
+                {t(site.name)}{t(" plans tailor-made journeys through Costa Rica, and only Costa Rica. Focusing on one country lets us go deeper into its regions, seasons and places to stay.")}
               </p>
               <p>
-                Within a few hours you can move from the cool mist of the cloud forest to dry tropical forest, from volcanic highlands to
-                Pacific surf, from Afro-Caribbean kitchens to remote rainforest reached only by boat. That variety is what makes Costa
-                Rica so rewarding, and what makes it easy to get wrong.
+                {t("Within a few hours you can move from the cool mist of the cloud forest to dry tropical forest, from volcanic highlands to Pacific surf, from Afro-Caribbean kitchens to remote rainforest reached only by boat. That variety is what makes Costa Rica so rewarding, and what makes it easy to get wrong.")}
               </p>
             </div>
           </>
@@ -49,7 +51,7 @@ export default function AboutPage() {
       <InfoList
         title="Who We Plan For"
         doodle="palm"
-        text={<p>Travellers who care about the details, and who&rsquo;d rather have a trip that has been thought through.</p>}
+        text={<p>{t("Travellers who care about the details, and who’d rather have a trip that has been thought through.")}</p>}
         items={[
           { title: "First-time visitors", text: "A balanced route through the country's classic landscapes, without spending the holiday in a car." },
           { title: "Return travellers", text: "The wilder south, the Caribbean, or a slower stay somewhere you only glimpsed last time." },

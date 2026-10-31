@@ -16,13 +16,15 @@ import { images } from "@/content/images";
 import { destinationCard, destinationsBySlug, journeyCard, regionNames } from "@/lib/content";
 import { organizationId, pageMetadata } from "@/lib/seo";
 
-type Props = { params: Promise<{ slug: string }> };
+import { t, setLocale } from "@/i18n/server";
+type Props = { params: Promise<{ slug: string; locale: string }> };
 
 export function generateStaticParams() {
   return journeys.map((j) => ({ slug: j.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  setLocale((await params).locale);
   const { slug } = await params;
   const journey = getJourney(slug);
   if (!journey) return {};
@@ -36,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function JourneyPage({ params }: Props) {
+  setLocale((await params).locale);
   const { slug } = await params;
   const journey = getJourney(slug);
   if (!journey) notFound();
@@ -88,21 +91,20 @@ export default async function JourneyPage({ params }: Props) {
           <>
             <BoxHeading text={`The Shape Of ${journey.title}`} size="l" />
             <ul className="mt-4 flex flex-col items-start gap-1.5">
-              {journey.idealFor.map((t) => (
-                <li key={t}>
+              {journey.idealFor.map((who) => (
+                <li key={who}>
                   <DarkChip>
-                    <span aria-hidden>✦</span> Ideal for {t.toLowerCase()}
+                    <span aria-hidden>✦</span>{t(" Ideal for ")}{t(who.toLowerCase())}
                   </DarkChip>
                 </li>
               ))}
             </ul>
             <div className="mt-10 max-w-md space-y-4 text-lead">
               {journey.intro.map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i}>{t(p)}</p>
               ))}
               <p className="label border-l-2 border-terra pl-3">
-                An illustrative route, not a bookable package. Stays, timings and transport are chosen with you and confirmed only in
-                your own proposal.
+                {t("An illustrative route, not a bookable package. Stays, timings and transport are chosen with you and confirmed only in your own proposal.")}
               </p>
             </div>
           </>
@@ -123,8 +125,8 @@ export default async function JourneyPage({ params }: Props) {
         doodle="palm"
         text={
           <>
-            <p>{journey.stays.intro}</p>
-            <p className="label mt-4">Typical stays: {journey.stays.styles.join(" · ")}</p>
+            <p>{t(journey.stays.intro)}</p>
+            <p className="label mt-4">{t("Typical stays: ")}{t(journey.stays.styles.join(" · "))}</p>
           </>
         }
         items={[
@@ -135,7 +137,7 @@ export default async function JourneyPage({ params }: Props) {
 
       <div className="frame pb-8">
         <BoxButton href={adaptHref} dark>
-          Start planning this journey
+          {t("Start planning this journey")}
         </BoxButton>
       </div>
 

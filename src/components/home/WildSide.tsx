@@ -3,6 +3,7 @@ import { BoxHeading } from "@/components/kit/BoxHeading";
 import { Doodle } from "@/components/kit/Doodle";
 import { Plate } from "@/components/ui/Plate";
 
+import { t } from "@/i18n/server";
 export function WildSide() {
   return (
     <section aria-labelledby="wild-title" className="frame grid gap-10 py-10 md:grid-cols-12">
@@ -10,11 +11,10 @@ export function WildSide() {
         <BoxHeading id="wild-title" text="Take A Walk On The Wild Side" size="m" />
         <div>
           <p className="text-lead">
-            Toucans in the canopy, sloths in the cecropia, red-eyed tree frogs after dark and scarlet macaws over the Osa. We plan
-            your days around the habitats, seasons and hours when wildlife is most active, with guides who know where to look.
+            {t("Toucans in the canopy, sloths in the cecropia, red-eyed tree frogs after dark and scarlet macaws over the Osa. We plan your days around the habitats, seasons and hours when wildlife is most active, with guides who know where to look.")}
           </p>
           <BoxButton href="/experiences#wildlife" className="mt-6">
-            Discover wildlife
+            {t("Discover wildlife")}
           </BoxButton>
         </div>
       </div>

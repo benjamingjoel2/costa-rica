@@ -1,3 +1,4 @@
+import { setLocale } from "@/i18n/server";
 import type { Metadata } from "next";
 import { BoxHeading } from "@/components/kit/BoxHeading";
 import { Card } from "@/components/kit/Card";
@@ -7,13 +8,17 @@ import { articles } from "@/content/journal";
 import { articleCard } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Journal: Costa Rica guides and planning notes",
-  description: "Destination comparisons, seasonal advice and practical planning notes for travelling well in Costa Rica, from the Selvora journal.",
-  path: "/journal",
-});
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  setLocale((await params).locale);
+  return pageMetadata({
+    title: "Journal: Costa Rica guides and planning notes",
+    description: "Destination comparisons, seasonal advice and practical planning notes for travelling well in Costa Rica, from the Selvora journal.",
+    path: "/journal",
+  });
+}
 
-export default function JournalPage() {
+export default async function JournalPage({ params }: { params: Promise<{ locale: string }> }) {
+  setLocale((await params).locale);
   return (
     <>
       <PageHero image="whale" kicker="Notes on travelling Costa Rica well" title="The Journal" short crumbs={[{ label: "Journal", href: "/journal" }]} />
