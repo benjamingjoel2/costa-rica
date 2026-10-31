@@ -3,7 +3,12 @@ import { IBM_Plex_Mono, Inter_Tight, Yellowtail } from "next/font/google";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { site } from "@/config/site";
-import "./globals.css";
+import { destinations } from "@/content/destinations";
+import { I18nProvider } from "@/i18n/client";
+import { CLIENT_STRINGS } from "@/i18n/client-strings";
+import { locales, ogLocales } from "@/i18n/locales";
+import { clientMessages, getLocale, setLocale, t, tr } from "@/i18n/server";
+import "../globals.css";
 
 const grotesk = Inter_Tight({
   subsets: ["latin"],
@@ -28,19 +33,27 @@ const yellowtail = Yellowtail({
   preload: false,
 });
 
-export const metadata: Metadata = {
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+type LayoutProps = Readonly<{ children: React.ReactNode; params: Promise<{ locale: string }> }>;
+
+export async function generateMetadata({ params }: Pick<LayoutProps, "params">): Promise<Metadata> {
+  setLocale((await params).locale);
+  return {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | ${site.descriptor}`,
+    default: `${site.name} | ${t(site.descriptor)}`,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
+  description: t(site.description),
   applicationName: site.name,
   openGraph: {
     type: "website",
     siteName: site.name,
-    locale: "en_GB",
-    images: [{ url: site.ogImage, alt: `${site.name}: ${site.descriptor}` }],
+    locale: ogLocales[getLocale()],
+    images: [{ url: site.ogImage, alt: `${site.name}: ${t(site.descriptor)}` }],
   },
   twitter: { card: "summary_large_image" },
   // Search Console / Bing Webmaster verification; see .env.example.
@@ -48,19 +61,24 @@ export const metadata: Metadata = {
     google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
     other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined,
   },
-};
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#222222",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children, params }: LayoutProps) {
+  setLocale((await params).locale);
+  const regions = tr(destinations).map(({ slug, shortName, area }) => ({ slug, shortName, area }));
   return (
-    <html lang="en" className={`${grotesk.variable} ${plexMono.variable} ${yellowtail.variable}`}>
+    <html lang={getLocale()} className={`${grotesk.variable} ${plexMono.variable} ${yellowtail.variable}`}>
       <body>
-        <SiteHeader />
-        <main id="main" tabIndex={-1} className="outline-none">{children}</main>
-        <SiteFooter />
+        <I18nProvider messages={clientMessages(CLIENT_STRINGS)}>
+          <SiteHeader regions={regions} />
+          <main id="main" tabIndex={-1} className="outline-none">{children}</main>
+          <SiteFooter />
+        </I18nProvider>
       </body>
     </html>
   );

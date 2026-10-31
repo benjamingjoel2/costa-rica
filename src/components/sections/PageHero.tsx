@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { BoxHeading } from "@/components/kit/BoxHeading";
 import { CircleArrowIcon } from "@/components/kit/BoxButton";
 import { DarkChip } from "@/components/kit/Tag";

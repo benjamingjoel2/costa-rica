@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { LegalPage } from "@/components/legal/LegalPage";
 import { site } from "@/config/site";
 import { pageMetadata } from "@/lib/seo";

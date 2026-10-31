@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { Doodle } from "@/components/kit/Doodle";
 import { Logo } from "@/components/kit/Logo";
 import { destinations } from "@/content/destinations";

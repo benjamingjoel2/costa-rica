@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { BoxButton } from "@/components/kit/BoxButton";
 import { BoxHeading } from "@/components/kit/BoxHeading";
 import { planHref, site } from "@/config/site";

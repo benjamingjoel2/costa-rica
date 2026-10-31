@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { Plate } from "@/components/ui/Plate";
 import type { ImageKey } from "@/content/images";
 import { CircleArrowIcon } from "./BoxButton";

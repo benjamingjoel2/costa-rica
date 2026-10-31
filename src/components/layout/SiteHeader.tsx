@@ -1,11 +1,15 @@
 "use client";
 
-import Link from "next/link";
+import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/kit/Logo";
-import { destinations } from "@/content/destinations";
 import { planHref, site } from "@/config/site";
+import { useLocale, useT } from "@/i18n/client";
+import Link from "@/i18n/Link";
+import { localeNames, locales, localizeHref, stripLocale } from "@/i18n/locales";
+
+type Region = { slug: string; shortName: string; area: string };
 
 const navItems = [
   { label: "About", href: "/about" },
@@ -19,8 +23,9 @@ const navItems = [
 
 const box = "border border-ink bg-white text-ink";
 
-export function SiteHeader() {
-  const pathname = usePathname();
+export function SiteHeader({ regions: destinations }: { regions: Region[] }) {
+  const t = useT();
+  const pathname = stripLocale(usePathname());
   const [menuOpen, setMenuOpen] = useState(false);
   const [regionsOpen, setRegionsOpen] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
@@ -44,19 +49,19 @@ export function SiteHeader() {
   return (
     <>
       <a href="#main" className="mono fixed left-3 top-3 z-[70] -translate-y-24 bg-ink px-4 py-3 text-sm text-white focus:translate-y-0">
-        Skip to content
+        {t("Skip to content")}
       </a>
       <header className="pointer-events-none absolute inset-x-0 top-0 z-50">
         <div className="frame flex items-start justify-between gap-4 pt-3 md:pt-8">
           {/* Logo + region picker + nav, as a grid of boxes */}
           <div className="pointer-events-auto flex w-full md:w-auto">
-            <Link href="/" aria-label={`${site.name}, home`} className={`${box} flex h-12 shrink-0 items-center px-3 text-[1.15rem] md:h-[5.4rem] md:px-5 md:text-[1.55rem]`}>
+            <Link href="/" aria-label={t(`${site.name}, home`)} className={`${box} flex h-12 shrink-0 items-center px-3 text-[1.15rem] md:h-[5.4rem] md:px-5 md:text-[1.55rem]`}>
               <Logo compact className="md:hidden" />
               <Logo className="hidden md:flex" />
             </Link>
             <div className="hidden flex-col md:flex">
-              <RegionPicker open={regionsOpen} setOpen={setRegionsOpen} label={currentRegion ? currentRegion.shortName : "Pick a region"} />
-              <nav aria-label="Main" className="-mt-px hidden lg:block">
+              <RegionPicker regions={destinations} open={regionsOpen} setOpen={setRegionsOpen} label={currentRegion ? currentRegion.shortName : t("Pick a region")} />
+              <nav aria-label={t("Main")} className="-mt-px hidden lg:block">
                 <ul className="flex">
                   {navItems.map((item) => (
                     <li key={item.href} className="-ml-px">
@@ -67,7 +72,7 @@ export function SiteHeader() {
                           isActive(item.href) ? "bg-ink text-white underline underline-offset-2" : "bg-white text-ink hover:bg-ink hover:text-white"
                         }`}
                       >
-                        {item.label}
+                        {t(item.label)}
                       </Link>
                     </li>
                   ))}
@@ -82,21 +87,23 @@ export function SiteHeader() {
           </div>
 
           <div className="pointer-events-auto hidden md:flex">
+            <LangSwitch pathname={pathname} className="mr-3" />
             <MenuButton refEl={menuButton} open={menuOpen} onClick={() => setMenuOpen((o) => !o)} />
             <PlanButton className="-ml-px" />
           </div>
         </div>
         {/* Mobile region picker row */}
         <div className="frame pointer-events-auto -mt-px md:hidden">
-          <RegionPicker open={regionsOpen} setOpen={setRegionsOpen} label={currentRegion ? currentRegion.shortName : "Pick a region"} full />
+          <RegionPicker regions={destinations} open={regionsOpen} setOpen={setRegionsOpen} label={currentRegion ? currentRegion.shortName : t("Pick a region")} full />
         </div>
       </header>
-      <MenuPanel open={menuOpen} onClose={closeMenu} isActive={isActive} />
+      <MenuPanel regions={destinations} pathname={pathname} open={menuOpen} onClose={closeMenu} isActive={isActive} />
     </>
   );
 }
 
 function MenuButton({ open, onClick, className = "", refEl }: { open: boolean; onClick: () => void; className?: string; refEl: React.RefObject<HTMLButtonElement | null> }) {
+  const t = useT();
   return (
     <button
       ref={refEl}
@@ -106,7 +113,7 @@ function MenuButton({ open, onClick, className = "", refEl }: { open: boolean; o
       onClick={onClick}
       className={`${box} mono flex h-12 items-center justify-center gap-3 px-4 text-[0.8rem] hover:bg-ink hover:text-white md:h-11 ${className}`}
     >
-      {open ? "Close" : "Menu"}
+      {open ? t("Close") : t("Menu")}
       <span aria-hidden className="flex w-5 flex-col items-end gap-[3px]">
         <span className={`h-[1.5px] bg-current transition-all ${open ? "w-5 translate-y-[2.25px] rotate-45" : "w-5"}`} />
         <span className={`h-[1.5px] bg-current transition-all ${open ? "w-5 -translate-y-[2.25px] -rotate-45" : "w-3"}`} />
@@ -116,9 +123,10 @@ function MenuButton({ open, onClick, className = "", refEl }: { open: boolean; o
 }
 
 function PlanButton({ className = "" }: { className?: string }) {
+  const t = useT();
   return (
     <Link href={planHref} className={`${box} mono flex h-12 items-center justify-center gap-3 px-4 text-[0.8rem] hover:bg-ink hover:text-white md:h-11 ${className}`}>
-      Plan trip
+      {t("Plan trip")}
       <svg aria-hidden viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.8">
         <path d="M2 8h11M9 4l4 4-4 4" />
       </svg>
@@ -126,7 +134,8 @@ function PlanButton({ className = "" }: { className?: string }) {
   );
 }
 
-function RegionPicker({ open, setOpen, label, full = false }: { open: boolean; setOpen: (v: boolean) => void; label: string; full?: boolean }) {
+function RegionPicker({ regions: destinations, open, setOpen, label, full = false }: { regions: Region[]; open: boolean; setOpen: (v: boolean) => void; label: string; full?: boolean }) {
+  const t = useT();
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!open) return;
@@ -167,7 +176,7 @@ function RegionPicker({ open, setOpen, label, full = false }: { open: boolean; s
           ))}
           <li>
             <Link href="/destinations" className="mono block bg-ink px-3 py-2.5 text-[0.8rem] text-white hover:bg-forest">
-              All regions →
+              {t("All regions →")}
             </Link>
           </li>
         </ul>
@@ -176,7 +185,8 @@ function RegionPicker({ open, setOpen, label, full = false }: { open: boolean; s
   );
 }
 
-function MenuPanel({ open, onClose, isActive }: { open: boolean; onClose: () => void; isActive: (href: string) => boolean }) {
+function MenuPanel({ regions: destinations, pathname, open, onClose, isActive }: { regions: Region[]; pathname: string; open: boolean; onClose: () => void; isActive: (href: string) => boolean }) {
+  const t = useT();
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -196,9 +206,9 @@ function MenuPanel({ open, onClose, isActive }: { open: boolean; onClose: () => 
   }, [open, onClose]);
 
   return (
-    <div id="site-menu" ref={panelRef} role="dialog" aria-modal="true" aria-label="Site menu" hidden={!open} className="fixed inset-0 z-40 overflow-y-auto bg-white">
+    <div id="site-menu" ref={panelRef} role="dialog" aria-modal="true" aria-label={t("Site menu")} hidden={!open} className="fixed inset-0 z-40 overflow-y-auto bg-white">
       <div className="frame grid min-h-full gap-12 pb-12 pt-32 md:grid-cols-2 md:pt-40">
-        <nav aria-label="Menu">
+        <nav aria-label={t("Menu")}>
           <ul className="flex flex-col items-start">
             {[{ label: "Home", href: "/" }, ...navItems].map((item) => (
               <li key={item.href} className="-mt-px">
@@ -207,14 +217,15 @@ function MenuPanel({ open, onClose, isActive }: { open: boolean; onClose: () => 
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className="boxword block text-[2.6rem] font-medium tracking-[-0.055em] hover:bg-ink hover:text-white md:text-[4rem]"
                 >
-                  {item.label}
+                  {t(item.label)}
                 </Link>
               </li>
             ))}
           </ul>
+          <LangSwitch pathname={pathname} className="mt-8" />
         </nav>
         <div className="md:border-l md:border-ink md:pl-6">
-          <p className="label text-stone">Regions</p>
+          <p className="label text-stone">{t("Regions")}</p>
           <ul className="mt-3 border-t border-ink">
             {destinations.map((d) => (
               <li key={d.slug} className="border-b border-ink">
@@ -226,10 +237,35 @@ function MenuPanel({ open, onClose, isActive }: { open: boolean; onClose: () => 
             ))}
           </ul>
           <Link href={planHref} className="mono mt-8 flex h-14 items-center justify-between bg-ink px-5 text-white hover:bg-forest">
-            Plan your trip <span aria-hidden>→</span>
+            {t("Plan your trip")} <span aria-hidden>→</span>
           </Link>
         </div>
       </div>
+    </div>
+  );
+}
+
+/** EN · FR · DE · ES: the same page in each language. */
+function LangSwitch({ pathname, className = "" }: { pathname: string; className?: string }) {
+  const t = useT();
+  const locale = useLocale();
+  return (
+    <div role="group" aria-label={t("Language")} className={`${box} mono flex h-11 items-center px-1.5 text-[0.75rem] ${className}`}>
+      {locales.map((l, i) => (
+        <span key={l} className="flex items-center">
+          {i > 0 && <span aria-hidden className="px-0.5 text-stone">·</span>}
+          <NextLink
+            href={localizeHref(l, pathname)}
+            hrefLang={l}
+            lang={l}
+            title={localeNames[l]}
+            aria-current={l === locale ? "true" : undefined}
+            className={`flex h-9 min-w-9 items-center justify-center px-1 hover:bg-ink hover:text-white ${l === locale ? "underline decoration-2 underline-offset-4" : ""}`}
+          >
+            {l.toUpperCase()}
+          </NextLink>
+        </span>
+      ))}
     </div>
   );
 }

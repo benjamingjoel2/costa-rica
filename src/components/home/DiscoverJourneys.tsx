@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { BoxHeading } from "@/components/kit/BoxHeading";
 import { Plate } from "@/components/ui/Plate";
 import { journeys } from "@/content/journeys";
