@@ -1,0 +1,7 @@
+# Cloudflare static-asset headers. Mirrors headers() in next.config.ts, which is not
+# applied to files served straight from assets.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
