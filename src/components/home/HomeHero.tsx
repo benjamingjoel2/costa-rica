@@ -1,10 +1,11 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { BoxHeading } from "@/components/kit/BoxHeading";
 import { CarouselControls } from "@/components/kit/Carousel";
 import { Plate } from "@/components/ui/Plate";
 import { journeys } from "@/content/journeys";
 import { pad, regionNames } from "@/lib/content";
 
+import { t } from "@/i18n/server";
 export function HomeHero() {
   return (
     <section aria-labelledby="hero-title" className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-white">
@@ -13,7 +14,7 @@ export function HomeHero() {
 
       <div className="frame pb-6 pt-48">
         <BoxHeading as="h1" id="hero-title" text="Meet Costa Rica" size="xl" />
-        <p className="mono mt-4 max-w-md text-[0.8rem] text-white/90">Tailor-made journeys through rainforest, cloud forest, volcanoes and two coastlines.</p>
+        <p className="mono mt-4 max-w-md text-[0.8rem] text-white/90">{t("Tailor-made journeys through rainforest, cloud forest, volcanoes and two coastlines.")}</p>
       </div>
 
       <div className="frame pb-5">
@@ -24,9 +25,9 @@ export function HomeHero() {
                 <Link href={`/journeys/${j.slug}`} className="group grid grid-cols-[6rem_1fr] gap-3">
                   <Plate image={j.image} ratio="aspect-[3/2]" sizes="6rem" imgClassName="transition-transform group-hover:scale-105" />
                   <span className="mono text-[0.72rem] leading-snug">
-                    <span className="block">{pad(i + 1)}</span>
-                    <span className="mt-3 block group-hover:underline">{j.title}</span>
-                    <span className="block text-white/60">{regionNames(j).join(", ")}</span>
+                    <span className="block">{t(pad(i + 1))}</span>
+                    <span className="mt-3 block group-hover:underline">{t(j.title)}</span>
+                    <span className="block text-white/60">{t(regionNames(j).join(", "))}</span>
                   </span>
                 </Link>
               </li>

@@ -1,5 +1,6 @@
 import { Squiggle } from "./Squiggle";
 
+import { t } from "@/i18n/server";
 type Size = "xl" | "l" | "m" | "s";
 
 const sizes: Record<Size, string> = {
@@ -24,7 +25,7 @@ type BoxHeadingProps = {
  * get rounded corners, chosen deterministically from the word so layouts are stable.
  */
 export function BoxHeading({ text, as: Tag = "h2", size = "l", squiggle, className = "", id }: BoxHeadingProps) {
-  const words = text.split(" ");
+  const words = t(text).split(" ");
   return (
     <Tag id={id} className={`${sizes[size]} font-medium leading-none tracking-[-0.055em] ${className}`}>
       <span className="inline-flex flex-wrap pl-px pt-px">

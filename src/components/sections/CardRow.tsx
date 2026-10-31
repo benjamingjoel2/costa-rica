@@ -4,6 +4,7 @@ import { Card } from "@/components/kit/Card";
 import { CarouselControls } from "@/components/kit/Carousel";
 import type { ImageKey } from "@/content/images";
 
+import { t } from "@/i18n/server";
 type Item = { href: string; image: ImageKey; tags: string[]; title: string; meta: string[]; summary: string };
 
 /** Heading column beside a horizontally scrolling row of cards. */
@@ -16,7 +17,7 @@ export function CardRow({ id, title, items, more, grey = false }: { id: string; 
           <BoxHeading id={`${id}-title`} text={title} size="m" />
           {more && (
             <BoxButton href={more.href} className="mt-4">
-              {more.label}
+              {t(more.label)}
             </BoxButton>
           )}
           {items.length > 2 && <CarouselControls targetId={`${id}-track`} className="mt-6" />}

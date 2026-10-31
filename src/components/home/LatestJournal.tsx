@@ -4,6 +4,7 @@ import { Card } from "@/components/kit/Card";
 import { CarouselControls } from "@/components/kit/Carousel";
 import { articles, readingMinutes } from "@/content/journal";
 
+import { t } from "@/i18n/server";
 export function LatestJournal({ title = "Latest From The Journal" }: { title?: string }) {
   return (
     <section aria-labelledby="journal-title" className="bg-paper py-16">
@@ -11,7 +12,7 @@ export function LatestJournal({ title = "Latest From The Journal" }: { title?: s
         <div>
           <BoxHeading id="journal-title" text={title} size="m" />
           <BoxButton href="/journal" className="mt-4">
-            View all articles
+            {t("View all articles")}
           </BoxButton>
           <CarouselControls targetId="journal-track" className="mt-6" />
         </div>
