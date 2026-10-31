@@ -42,3 +42,10 @@ next-env.d.ts
 
 # allow the documented example env file
 !.env.example
+
+# Cloudflare (OpenNext) build output
+/.open-next
+/dist-pages
+/.cf-bundle
+/.wrangler
+.dev.vars
