@@ -1,20 +1,23 @@
 "use client";
 
+import { useT } from "@/i18n/client";
+
 import { useRef } from "react";
 import { CircleArrowIcon } from "./BoxButton";
 
 /** A horizontally scrolling row with previous/next circle buttons. */
 export function CarouselControls({ targetId, className = "" }: { targetId: string; className?: string }) {
+  const t = useT();
   const scroll = (dir: number) => {
     const el = document.getElementById(targetId);
     el?.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
   };
   return (
     <div className={`flex gap-1 ${className}`}>
-      <button type="button" className="group" onClick={() => scroll(-1)} aria-label="Previous" aria-controls={targetId}>
+      <button type="button" className="group" onClick={() => scroll(-1)} aria-label={t("Previous")} aria-controls={targetId}>
         <CircleArrowIcon dir="left" className="h-9 w-9 bg-white text-ink" />
       </button>
-      <button type="button" className="group" onClick={() => scroll(1)} aria-label="Next" aria-controls={targetId}>
+      <button type="button" className="group" onClick={() => scroll(1)} aria-label={t("Next")} aria-controls={targetId}>
         <CircleArrowIcon className="h-9 w-9 bg-white text-ink" />
       </button>
     </div>

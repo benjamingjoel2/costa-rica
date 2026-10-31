@@ -1,6 +1,7 @@
 import { preload } from "react-dom";
 import { images, type ImageKey } from "@/content/images";
 
+import { t } from "@/i18n/server";
 type PlateProps = {
   image: ImageKey;
   /** Tailwind aspect-ratio class, e.g. "aspect-[4/5]". Omit when the parent sets the size. */
@@ -42,7 +43,7 @@ export function Plate({ image, ratio, sizes, className = "", imgClassName = "", 
         {/* Plain <img>: photos are pre-built static AVIFs, so next/image's on-demand resizing isn't needed. */}
         <img
           src={asset.src}
-          alt={decorative ? "" : asset.alt}
+          alt={t(decorative ? "" : asset.alt)}
           width={asset.width}
           height={asset.height}
           sizes={sizes}
@@ -59,7 +60,7 @@ export function Plate({ image, ratio, sizes, className = "", imgClassName = "", 
   return (
     <figure className={className}>
       {media}
-      <figcaption className="mt-3 text-sm text-stone">{caption}</figcaption>
+      <figcaption className="mt-3 text-sm text-stone">{t(caption)}</figcaption>
     </figure>
   );
 }

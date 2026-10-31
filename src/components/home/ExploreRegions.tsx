@@ -4,6 +4,7 @@ import { Doodle } from "@/components/kit/Doodle";
 import { Plate } from "@/components/ui/Plate";
 import type { ImageKey } from "@/content/images";
 
+import { t } from "@/i18n/server";
 const regions: { name: string; image: ImageKey; text: string; href: string; cta: string }[] = [
   {
     name: "The North",
@@ -36,8 +37,7 @@ export function ExploreRegions() {
           <BoxHeading id="regions-title" text="Explore Our Regions" size="l" squiggle={1} />
           <Doodle name="volcano" className="mx-auto my-16 h-36 w-36 md:my-auto md:h-44 md:w-44" />
           <p className="max-w-md text-lead">
-            From the volcanoes and cloud forests of the north to two very different coastlines, Selvora plans journeys across
-            Costa Rica, shaped around the places that suit you, the season and the way you like to travel.
+            {t("From the volcanoes and cloud forests of the north to two very different coastlines, Selvora plans journeys across Costa Rica, shaped around the places that suit you, the season and the way you like to travel.")}
           </p>
         </div>
         <ul className="md:border-l md:border-ink md:pl-5">
@@ -45,11 +45,11 @@ export function ExploreRegions() {
             <li key={r.name} className={`grid gap-5 py-6 sm:grid-cols-2 ${i > 0 ? "border-t border-ink" : "pt-0"}`}>
               <div className="flex flex-col justify-between gap-6">
                 <BoxHeading as="h3" text={r.name} size="s" />
-                <BoxButton href={r.href}>{r.cta}</BoxButton>
+                <BoxButton href={r.href}>{t(r.cta)}</BoxButton>
               </div>
               <div>
                 <Plate image={r.image} ratio="aspect-[8/5]" sizes="(min-width: 768px) 24vw, (min-width: 640px) 45vw, 92vw" />
-                <p className="label mt-4">{r.text}</p>
+                <p className="label mt-4">{t(r.text)}</p>
               </div>
             </li>
           ))}

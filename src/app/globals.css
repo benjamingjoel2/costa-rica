@@ -133,6 +133,10 @@
     padding: 0.02em 0.09em 0.06em;
     margin: 0 -1px -1px 0;
     line-height: 0.98;
+    /* Long compound words (German) break inside their box rather than overflow on phones. */
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
 
   /* Long-form reading text for journal articles and legal pages. */
