@@ -1,9 +1,10 @@
-import Link from "next/link";
+import Link from "@/i18n/Link";
 import { Doodle } from "@/components/kit/Doodle";
 import { Logo } from "@/components/kit/Logo";
 import { destinations } from "@/content/destinations";
 import { planHref, site } from "@/config/site";
 
+import { t } from "@/i18n/server";
 const COPYRIGHT_YEAR = 2026;
 
 // Regions grouped the way travellers usually think about the country.
@@ -41,21 +42,21 @@ export function SiteFooter() {
             <Link href="/" aria-label={`${site.name}, home`} className="text-[1.9rem]">
               <Logo />
             </Link>
-            <p className="mono text-[0.75rem] text-white/50">&copy;{COPYRIGHT_YEAR} {site.name}</p>
+            <p className="mono text-[0.75rem] text-white/50">©{COPYRIGHT_YEAR} {t(site.name)}</p>
           </div>
         </div>
 
         <div className="py-8 md:pl-6">
           {groups.map((g) => (
             <div key={g.label} className="mb-6">
-              <p className="mono text-[0.8rem] text-sage">{g.label}</p>
+              <p className="mono text-[0.8rem] text-sage">{t(g.label)}</p>
               <ul className="mt-2 border-t border-white/25">
                 {destinations
                   .filter((d) => g.slugs.includes(d.slug))
                   .map((d) => (
                     <li key={d.slug} className="border-b border-white/25">
                       <Link href={`/destinations/${d.slug}`} className="block py-3 text-[2rem] font-medium leading-none tracking-[-0.05em] hover:text-sage md:text-[2.4rem]">
-                        {d.name}
+                        {t(d.name)}
                       </Link>
                     </li>
                   ))}
@@ -63,13 +64,13 @@ export function SiteFooter() {
             </div>
           ))}
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-6 border-b border-white/25 py-8">
+          <nav aria-label={t("Footer")} className="grid grid-cols-2 gap-6 border-b border-white/25 py-8">
             {links.map((col, i) => (
               <ul key={i} className="space-y-3">
                 {col.map((l) => (
                   <li key={l.href}>
                     <Link href={l.href} className="mono text-[0.85rem] hover:text-sage">
-                      {l.label}
+                      {t(l.label)}
                     </Link>
                   </li>
                 ))}
@@ -78,19 +79,22 @@ export function SiteFooter() {
           </nav>
 
           <div className="pt-8">
-            <p className="mono text-[0.8rem] text-sage">Ready when you are</p>
+            <p className="mono text-[0.8rem] text-sage">{t("Ready when you are")}</p>
             <Link href={planHref} className="group mt-3 flex h-14 items-center justify-between border border-white px-4">
-              <span className="mono text-[0.85rem] text-white/70">Tell us about your trip</span>
-              <span className="mono bg-white px-4 py-2 text-[0.8rem] text-ink group-hover:bg-sage">Start planning</span>
+              <span className="mono text-[0.85rem] text-white/70">{t("Tell us about your trip")}</span>
+              <span className="mono bg-white px-4 py-2 text-[0.8rem] text-ink group-hover:bg-sage">{t("Start planning")}</span>
             </Link>
             {site.contactEmail && (
               <p className="mono mt-4 text-[0.8rem] text-white/70">
-                Or email{" "}
+                {t("Or email")}{t(" ")}
                 <a href={`mailto:${site.contactEmail}`} className="text-sage underline">
-                  {site.contactEmail}
+                  {t(site.contactEmail)}
                 </a>
               </p>
             )}
+            <p className="mono mt-2 text-[0.8rem] text-white/50">
+              {site.address.locality}, {t(site.address.country)}
+            </p>
           </div>
         </div>
       </div>

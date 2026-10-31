@@ -43,6 +43,10 @@ npm run lint
 - `src/lib/inquiry.ts`: inquiry fields and validation shared by the form and the API route.
 - `docs/`: brand, imagery and content notes.
 
+## Languages
+
+English is served at the unprefixed URLs and French, German and Spanish under `/fr`, `/de` and `/es`, all pre-rendered from `src/app/[locale]/` (the proxy in `src/proxy.ts` maps English URLs to the `en` segment; no redirects by browser language). Server components translate through `t()` and `tr()` from `src/i18n/server.ts`, using the dictionaries `src/i18n/{fr,de,es}.json`, keyed by the English text (`"="` keeps the English). Client components use `useT()` and receive only the strings listed in `src/i18n/client-strings.ts`. A missing translation fails the build. After changing copy, run `I18N_COLLECT=/tmp/missing.txt npm run build` to list what needs translating, add it to the three dictionaries, then build normally. The EN · FR · DE · ES selector is in the header and the mobile menu; every page has `hreflang` alternates and a localized canonical, and the sitemap lists all four languages.
+
 ## Setup still required before launch
 
 1. **Inquiry delivery.** Set `INQUIRY_WEBHOOK_URL` (and optionally `INQUIRY_WEBHOOK_SECRET`); see `.env.example`. The route POSTs JSON such as
@@ -50,7 +54,7 @@ npm run lint
    Until it's set, submissions return `503` and the form says plainly that the inquiry **was not sent**. It never shows a false success.
    If you'd rather send email directly (Resend, Postmark, etc.), replace the `fetch` in `src/app/api/inquiry/route.ts`. The validation and the client stay as they are.
 2. **Site URL and search engines.** Set `NEXT_PUBLIC_SITE_URL` so canonical URLs, the sitemap and OG tags point at the real domain (update it when you add a custom domain, then redeploy). Then verify the site in Google Search Console and Bing Webmaster Tools: choose the "HTML tag" method, put the code in `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION`, redeploy, and submit `/sitemap.xml`. Page titles and descriptions are set per page through `pageMetadata()` in `src/lib/seo.ts`; keep titles under about 60 characters and descriptions under about 160.
-3. **Contact details.** The public address is selvora@tourground.com (`site.contactEmail` in `src/config/site.ts`). By owner decision the site shows no phone number, WhatsApp, social accounts, licence numbers, team section or testimonials. A business address (a premium coworking space in San José) still has to be chosen and added to `src/config/site.ts`, the footer, the legal pages and the JSON-LD.
+3. **Contact details.** The public address is selvora@tourground.com (`site.contactEmail` in `src/config/site.ts`). By owner decision the site shows no phone number, WhatsApp, social accounts, licence numbers, team section or testimonials. The footer and the JSON-LD show the city only ("San José, Costa Rica", `site.address`); the exact street address of the approved premium coworking space in San José still has to be researched and added there and to the legal pages.
 4. **Photography.** The site uses free Pexels photos stored in `public/images/photos/`. Replace them with your own photography over time (see `docs/IMAGERY.md`).
 5. **Legal pages.** Booking terms (`/terms`), privacy policy (`/privacy`) and cookie policy (`/cookies`) are complete, with no gaps, but a lawyer should review them before launch.
 6. **Analytics.** None is installed. If you add it, update the privacy and cookie policies and ask for consent first.
