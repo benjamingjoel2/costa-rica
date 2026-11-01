@@ -93,7 +93,7 @@ export function SiteFooter() {
               </p>
             )}
             <p className="mono mt-2 text-[0.8rem] text-white/50">
-              {site.address.locality}, {t(site.address.country)}
+              {site.address.line}
             </p>
           </div>
         </div>
