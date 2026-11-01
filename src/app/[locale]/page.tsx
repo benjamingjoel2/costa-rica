@@ -39,7 +39,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               image: absoluteUrl(site.ogImage),
               logo: absoluteUrl("/icon.svg"),
               areaServed: { "@type": "Country", name: "Costa Rica" },
-              address: { "@type": "PostalAddress", addressLocality: site.address.locality, addressCountry: site.address.countryCode },
+              address: { "@type": "PostalAddress", streetAddress: site.address.street, addressLocality: site.address.locality, addressCountry: site.address.countryCode },
               ...(site.contactEmail && { email: site.contactEmail }),
             },
             { "@type": "WebSite", "@id": absoluteUrl("/#website"), name: site.name, url: absoluteUrl("/"), inLanguage: "en", publisher: { "@id": organizationId } },

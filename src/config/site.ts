@@ -16,9 +16,14 @@ export const site = {
   locale: "en",
   // The one public address for the brand ({brand}@tourground.com).
   contactEmail: "selvora@tourground.com" as string | null,
-  // Business address. The owner approved a premium coworking address in San José; the exact
-  // street address still has to be filled in (see README, "Before launch").
-  address: { locality: "San José", country: "Costa Rica", countryCode: "CR" },
+  // Business address: Regus Escazú Corporate Center, premium coworking in San José (owner rule).
+  address: {
+    line: "Regus Escazú Corporate Center, 6th floor, Escazú, San José, Costa Rica",
+    street: "Escazú Corporate Center, 6th floor",
+    locality: "San José",
+    country: "Costa Rica",
+    countryCode: "CR",
+  },
   // Social sharing image: the homepage hero photograph.
   ogImage: "/images/photos/heroArenal.jpg",
 } as const;
