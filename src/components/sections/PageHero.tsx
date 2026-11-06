@@ -1,6 +1,6 @@
 import Link from "@/i18n/Link";
 import { BoxHeading } from "@/components/kit/BoxHeading";
-import { CircleArrowIcon } from "@/components/kit/BoxButton";
+import { ArrowGlyph } from "@/components/kit/BoxButton";
 import { DarkChip } from "@/components/kit/Tag";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Plate } from "@/components/ui/Plate";
@@ -37,8 +37,10 @@ export function PageHero({ image, kicker, title, crumbs, facts, cta, short = fal
             ))}
             {cta && (
               <Link href={cta.href} className="group flex items-stretch md:ml-px">
-                <span className="mono flex flex-1 items-center justify-center bg-ink px-10 py-4 text-[0.9rem] text-white group-hover:bg-forest">{t(cta.label)}</span>
-                <CircleArrowIcon className="h-auto w-14 border-ink bg-ink text-white" />
+                <span className="mono flex flex-1 items-center justify-center gap-3 bg-ink px-10 py-4 text-[0.9rem] text-white group-hover:bg-forest">
+                  {t(cta.label)}
+                  <ArrowGlyph />
+                </span>
               </Link>
             )}
           </div>

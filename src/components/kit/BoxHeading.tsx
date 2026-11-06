@@ -21,28 +21,26 @@ type BoxHeadingProps = {
 };
 
 /**
- * Headline in which every word sits in its own bordered white box. A few boxes
- * get rounded corners, chosen deterministically from the word so layouts are stable.
+ * Plain-text headline (owner rule: no word sits in its own box). The name stays so
+ * every page keeps working; the colour comes from the section it sits in.
  */
 export function BoxHeading({ text, as: Tag = "h2", size = "l", squiggle, className = "", id }: BoxHeadingProps) {
   const words = t(text).split(" ");
   return (
-    <Tag id={id} className={`${sizes[size]} font-medium leading-none tracking-[-0.055em] ${className}`}>
-      <span className="inline-flex flex-wrap pl-px pt-px">
-        {words.map((w, i) => (
-          <span key={`${w}-${i}`} className={`boxword relative ${rounded(w, i)}`}>
-            {w}
-            {squiggle === i && <Squiggle className="pointer-events-none absolute -bottom-[0.22em] -left-[0.1em] w-[115%]" />}
-          </span>
-        ))}
-      </span>
+    <Tag id={id} className={`${sizes[size]} max-w-[22ch] text-balance font-medium leading-[1.02] tracking-[-0.04em] [overflow-wrap:anywhere] ${className}`}>
+      {words.map((w, i) => (
+        <span key={`${w}-${i}`}>
+          {i > 0 && " "}
+          {squiggle === i ? (
+            <span className="relative inline-block">
+              {w}
+              <Squiggle className="pointer-events-none absolute -bottom-[0.22em] -left-[0.1em] w-[115%]" />
+            </span>
+          ) : (
+            w
+          )}
+        </span>
+      ))}
     </Tag>
   );
-}
-
-function rounded(word: string, i: number) {
-  const n = (word.length * 7 + i * 3) % 5;
-  if (n === 0) return "rounded-[0.16em]";
-  if (n === 3) return "rounded-tr-[0.16em] rounded-br-[0.16em]";
-  return "";
 }

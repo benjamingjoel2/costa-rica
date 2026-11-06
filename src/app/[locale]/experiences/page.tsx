@@ -28,9 +28,9 @@ export default async function ExperiencesPage({ params }: { params: Promise<{ lo
     <>
       <PageHero image="toucan" kicker="Shape the trip around what you love" title="Ways To Travel" short crumbs={[{ label: "Experiences", href: "/experiences" }]} />
 
-      <nav aria-label={t("Experiences on this page")} className="frame flex flex-wrap gap-px py-6">
+      <nav aria-label={t("Experiences on this page")} className="frame flex flex-wrap gap-x-6 gap-y-2 py-6">
         {experiences.map((e) => (
-          <a key={e.slug} href={`#${e.slug}`} className="mono border border-ink px-3 py-2 text-[0.75rem] hover:bg-ink hover:text-white">
+          <a key={e.slug} href={`#${e.slug}`} className="mono py-1 text-[0.75rem] underline decoration-ink/30 underline-offset-4 hover:decoration-ink">
             {t(e.title)}
           </a>
         ))}
