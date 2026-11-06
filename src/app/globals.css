@@ -2,29 +2,11 @@
 
 /* ---------------------------------------------------------------------------
    Selvora design tokens
-   A crisp white canvas, near-black ink and thin rules. Headlines are built
-   from individually boxed words; labels and buttons are set in a mono face.
+   A crisp white canvas, near-black ink and thin rules. Headlines are plain
+   text (no boxed words); labels and buttons are set in a mono face.
    Forest green and sage are used as full-width colour blocks; terracotta
    is the hand-drawn accent.
 --------------------------------------------------------------------------- */
-/*
- * Fallback for box headings while Inter Tight loads. next/font's own fallback
- * matches Inter Tight's width at normal tracking, but box headings use -0.055em
- * tracking, and where Arial is missing (Android, Linux) the generic sans ran
- * about 7% wide: "Meet Costa Rica" wrapped onto an extra line on 390px phones,
- * then jumped back when the font arrived (CLS ~0.19). This face matches the
- * heading widths with Arial or its metric twin Liberation Sans.
- * Metric overrides are scaled with size-adjust so the baseline stays put.
- */
-@font-face {
-  font-family: "Inter Tight Box Fallback";
-  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Helvetica"), local("Roboto");
-  size-adjust: 102%;
-  ascent-override: 94.98%;
-  descent-override: 23.65%;
-  line-gap-override: 0%;
-}
-
 @theme {
   --color-ink: #222222;
   --color-white: #ffffff;
@@ -45,9 +27,9 @@
   --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
   --font-script: var(--font-yellowtail), "Yellowtail", cursive;
 
-  --text-box-xl: clamp(3.2rem, 1.4rem + 7.4vw, 8.4rem);
-  --text-box-l: clamp(2.6rem, 1.5rem + 4.4vw, 6.4rem);
-  --text-box-m: clamp(2.1rem, 1.5rem + 2.4vw, 4.1rem);
+  --text-box-xl: clamp(2.5rem, 1.3rem + 4.4vw, 5.75rem);
+  --text-box-l: clamp(2.2rem, 1.3rem + 3.2vw, 4.5rem);
+  --text-box-m: clamp(1.9rem, 1.4rem + 1.9vw, 3.4rem);
   --text-box-s: clamp(1.55rem, 1.3rem + 0.9vw, 2.15rem);
   --text-lead: clamp(1.1rem, 1rem + 0.35vw, 1.3rem);
   --text-lead--line-height: 1.32;
@@ -121,22 +103,6 @@
     line-height: 1.35;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-  }
-
-  /* A word sitting in its own bordered box, the core headline device. */
-  .boxword {
-    font-family: "Inter Tight", "Inter Tight Box Fallback", var(--font-sans);
-    display: inline-block;
-    border: 1px solid var(--color-ink);
-    background: var(--color-white);
-    color: var(--color-ink);
-    padding: 0.02em 0.09em 0.06em;
-    margin: 0 -1px -1px 0;
-    line-height: 0.98;
-    /* Long compound words (German) break inside their box rather than overflow on phones. */
-    max-width: 100%;
-    overflow-wrap: anywhere;
-    hyphens: auto;
   }
 
   /* Long-form reading text for journal articles and legal pages. */

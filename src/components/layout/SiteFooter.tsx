@@ -1,5 +1,4 @@
 import Link from "@/i18n/Link";
-import { Doodle } from "@/components/kit/Doodle";
 import { Logo } from "@/components/kit/Logo";
 import { destinations } from "@/content/destinations";
 import { planHref, site } from "@/config/site";
@@ -14,89 +13,86 @@ const groups = [
   { label: "The Caribbean", slugs: ["caribbean"] },
 ];
 
-const links = [
-  [
-    { label: "About", href: "/about" },
-    { label: "Our approach", href: "/approach" },
-    { label: "Journal", href: "/journal" },
-    { label: "Contact us", href: "/plan" },
-    { label: "Booking terms", href: "/terms" },
-    { label: "Privacy policy", href: "/privacy" },
-    { label: "Cookie policy", href: "/cookies" },
-  ],
-  [
-    { label: "Journeys", href: "/journeys" },
-    { label: "Destinations", href: "/destinations" },
-    { label: "Experiences", href: "/experiences" },
-    { label: "Plan your trip", href: planHref },
-  ],
+const siteLinks = [
+  { label: "Journeys", href: "/journeys" },
+  { label: "Destinations", href: "/destinations" },
+  { label: "Experiences", href: "/experiences" },
+  { label: "Our approach", href: "/approach" },
+  { label: "About", href: "/about" },
+  { label: "Journal", href: "/journal" },
+  { label: "Plan your trip", href: planHref },
 ];
 
+const legal = [
+  { label: "Booking terms", href: "/terms" },
+  { label: "Privacy policy", href: "/privacy" },
+  { label: "Cookie policy", href: "/cookies" },
+];
+
+/** Compact footer: brand, one line, email and address once, link columns, one thin base line. */
 export function SiteFooter() {
   return (
-    <footer className="bg-night text-white">
-      <div className="frame grid md:grid-cols-2">
-        <div className="relative flex min-h-[18rem] flex-col justify-between py-8 md:min-h-full md:border-r md:border-white/25 md:pr-8">
-          <Doodle name="toucan" color="#D8E5D9" className="mx-auto mt-10 h-40 w-40 md:mt-32 md:h-52 md:w-52" />
-          <div className="mt-10 flex items-end justify-between gap-6">
-            <Link href="/" aria-label={`${site.name}, home`} className="text-[1.9rem]">
-              <Logo />
-            </Link>
-            <p className="mono text-[0.75rem] text-white/50">©{COPYRIGHT_YEAR} {t(site.name)}</p>
-          </div>
+    <footer className="bg-night pt-14 text-white">
+      <div className="frame grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.5fr_repeat(4,1fr)]">
+        <div className="col-span-2 max-w-sm lg:col-span-1">
+          <Link href="/" aria-label={`${site.name}, home`} className="inline-flex text-[1.5rem]">
+            <Logo className="items-start" />
+          </Link>
+          <p className="mt-4 text-[0.95rem] text-white/70">{t(site.descriptor)}</p>
+          {site.contactEmail && (
+            <p className="mt-3 text-[0.9rem]">
+              <a href={`mailto:${site.contactEmail}`} className="underline underline-offset-2 hover:text-sage">
+                {t(site.contactEmail)}
+              </a>
+            </p>
+          )}
+          <p className="mt-2 text-[0.85rem] text-white/60">{site.address.line}</p>
         </div>
 
-        <div className="py-8 md:pl-6">
-          {groups.map((g) => (
-            <div key={g.label} className="mb-6">
-              <p className="mono text-[0.8rem] text-sage">{t(g.label)}</p>
-              <ul className="mt-2 border-t border-white/25">
-                {destinations
-                  .filter((d) => g.slugs.includes(d.slug))
-                  .map((d) => (
-                    <li key={d.slug} className="border-b border-white/25">
-                      <Link href={`/destinations/${d.slug}`} className="block py-3 text-[2rem] font-medium leading-none tracking-[-0.05em] hover:text-sage md:text-[2.4rem]">
-                        {t(d.name)}
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          ))}
-
-          <nav aria-label={t("Footer")} className="grid grid-cols-2 gap-6 border-b border-white/25 py-8">
-            {links.map((col, i) => (
-              <ul key={i} className="space-y-3">
-                {col.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="mono text-[0.85rem] hover:text-sage">
-                      {t(l.label)}
+        {groups.map((g) => (
+          <nav key={g.label} aria-label={t(g.label)}>
+            <p className="mono mb-3 text-[0.72rem] text-sage">{t(g.label)}</p>
+            <ul className="space-y-2">
+              {destinations
+                .filter((d) => g.slugs.includes(d.slug))
+                .map((d) => (
+                  <li key={d.slug}>
+                    <Link href={`/destinations/${d.slug}`} className="text-[0.95rem] hover:text-sage">
+                      {t(d.shortName)}
                     </Link>
                   </li>
                 ))}
-              </ul>
-            ))}
+            </ul>
           </nav>
+        ))}
 
-          <div className="pt-8">
-            <p className="mono text-[0.8rem] text-sage">{t("Ready when you are")}</p>
-            <Link href={planHref} className="group mt-3 flex h-14 items-center justify-between border border-white px-4">
-              <span className="mono text-[0.85rem] text-white/70">{t("Tell us about your trip")}</span>
-              <span className="mono bg-white px-4 py-2 text-[0.8rem] text-ink group-hover:bg-sage">{t("Start planning")}</span>
-            </Link>
-            {site.contactEmail && (
-              <p className="mono mt-4 text-[0.8rem] text-white/70">
-                {t("Or email")}{t(" ")}
-                <a href={`mailto:${site.contactEmail}`} className="text-sage underline">
-                  {t(site.contactEmail)}
-                </a>
-              </p>
-            )}
-            <p className="mono mt-2 text-[0.8rem] text-white/50">
-              {site.address.line}
-            </p>
-          </div>
-        </div>
+        <nav aria-label={t("Footer")}>
+          <p className="mono mb-3 text-[0.72rem] text-sage">{t(site.name)}</p>
+          <ul className="space-y-2">
+            {siteLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-[0.95rem] hover:text-sage">
+                  {t(l.label)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <div className="frame mt-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-white/20 py-5 text-[0.72rem] text-white/60">
+        <p className="mono">
+          © {COPYRIGHT_YEAR} {t(site.name)}
+        </p>
+        <ul className="flex flex-wrap gap-x-5 gap-y-2">
+          {legal.map((l) => (
+            <li key={l.href}>
+              <Link href={l.href} className="mono hover:text-white">
+                {t(l.label)}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   );

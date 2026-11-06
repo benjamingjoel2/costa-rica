@@ -1,7 +1,7 @@
 import Link from "@/i18n/Link";
 import { Plate } from "@/components/ui/Plate";
 import type { ImageKey } from "@/content/images";
-import { CircleArrowIcon } from "./BoxButton";
+import { ArrowGlyph } from "./BoxButton";
 import { Tags } from "./Tag";
 
 import { t } from "@/i18n/server";
@@ -41,8 +41,10 @@ export function Card({ href, image, tags, title, meta, summary, cta = "View", ra
           <p className="label border-l border-ink pl-3">{t(summary)}</p>
         </div>
         <span className="mt-auto inline-flex pt-4">
-          <span className="mono flex h-12 items-center border border-ink px-5 text-[0.9rem] group-hover:bg-ink group-hover:text-white">{t(cta)}</span>
-          <CircleArrowIcon className="bg-white text-ink" />
+          <span className="mono inline-flex min-h-12 items-center gap-3 rounded-[2px] bg-ink px-5 text-[0.85rem] text-white group-hover:bg-forest">
+            {t(cta)}
+            <ArrowGlyph />
+          </span>
         </span>
       </div>
     </article>
