@@ -26,7 +26,7 @@ export function LegalPage({ title, href, doc }: { title: string; href: string; d
       <header>
         <Breadcrumbs items={[{ label: title, href }]} className="mb-6" />
         <DarkChip>{t("Legal")}</DarkChip>
-        <BoxHeading as="h1" text={title} size="l" className="mt-1.5" />
+        <BoxHeading as="h1" text={title} size="hero-l" className="mt-1.5" />
       </header>
       <div className="md:border-l md:border-ink md:pl-6">
         <div className="prose-selvora">

@@ -26,7 +26,7 @@ export function PageHero({ image, kicker, title, crumbs, facts, cta, short = fal
       <div className="frame pb-8 pt-48">
         <Breadcrumbs items={crumbs} tone="light" className="mb-6 hidden md:block" />
         <DarkChip>{t(kicker)}</DarkChip>
-        <BoxHeading as="h1" text={title} size="xl" className="mt-1.5" />
+        <BoxHeading as="h1" text={title} size="hero-xl" className="mt-1.5" />
         {(facts || cta) && (
           <div className="mt-6 flex flex-col gap-px md:flex-row">
             {facts?.map((f) => (

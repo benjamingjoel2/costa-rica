@@ -67,7 +67,7 @@ export default async function ArticlePage({ params }: Props) {
           <DarkChip>
             {t(article.category)} · {readingMinutes(article)}{t(" min read")}
           </DarkChip>
-          <BoxHeading as="h1" text={article.title} size="l" className="mt-1.5 max-w-6xl" />
+          <BoxHeading as="h1" text={article.title} size="hero-l" className="mt-1.5 max-w-6xl" />
           <p className="mt-6 max-w-2xl text-lead">{t(article.dek)}</p>
           <Plate image={article.image} ratio="aspect-[16/8]" priority sizes="100vw" className="mt-8" />
         </header>
