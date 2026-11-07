@@ -8,7 +8,7 @@ export default function NotFound() {
   return (
     <section className="frame flex min-h-[85svh] flex-col justify-center pb-16 pt-40">
       <DarkChip>{t("Page not found")}</DarkChip>
-      <BoxHeading as="h1" text="This Path Doesn't Lead Anywhere" size="l" className="mt-1.5" />
+      <BoxHeading as="h1" text="This Path Doesn't Lead Anywhere" size="hero-l" className="mt-1.5" />
       <Doodle name="binoculars" className="my-10 h-28 w-28" />
       <div className="flex flex-wrap gap-4">
         <BoxButton href="/journeys">{t("Explore the journeys")}</BoxButton>

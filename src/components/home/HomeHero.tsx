@@ -1,39 +1,41 @@
 import Link from "@/i18n/Link";
+import { BoxHeading } from "@/components/kit/BoxHeading";
 import { CarouselControls } from "@/components/kit/Carousel";
 import { Plate } from "@/components/ui/Plate";
-import { destinations } from "@/content/destinations";
-import { pad } from "@/lib/content";
+import { journeys } from "@/content/journeys";
+import { pad, regionNames } from "@/lib/content";
 
 import { t } from "@/i18n/server";
-
-/** H6 region carousel: the headline on forest green, then a scrollable row of region cards. */
 export function HomeHero() {
   return (
-    <section aria-labelledby="hero-title" className="bg-forest pb-10 pt-28 text-white md:pb-14 md:pt-36">
-      <div className="frame">
-        <h1 id="hero-title" className="max-w-[14ch] text-[clamp(2.6rem,1.4rem+4.4vw,5.75rem)] font-medium leading-[1.02] tracking-[-0.045em]">
-          {t("Meet Costa Rica")}
-        </h1>
-        <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
-          <p className="max-w-md text-lead text-white/85">{t("Tailor-made journeys through rainforest, cloud forest, volcanoes and two coastlines.")}</p>
-          <CarouselControls targetId="hero-regions" className="hidden md:flex" />
-        </div>
+    <section aria-labelledby="hero-title" className="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-white">
+      <Plate image="heroCanopy" priority sizes="100vw" cover className="-z-10" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-black/85 via-black/20 to-black/10" />
+
+      <div className="frame pb-6 pt-48">
+        <BoxHeading as="h1" id="hero-title" text="Meet Costa Rica" size="hero-xl" />
+        <p className="mono mt-4 max-w-md text-[0.8rem] text-white/90">{t("Tailor-made journeys through rainforest, cloud forest, volcanoes and two coastlines.")}</p>
       </div>
 
-      <ul id="hero-regions" aria-label={t("Regions")} className="scroller frame mt-8 flex scroll-px-3 gap-4 overflow-x-auto md:mt-10 md:scroll-px-8 md:gap-5">
-        {destinations.map((d, i) => (
-          <li key={d.slug} className="w-[72vw] shrink-0 snap-start sm:w-[19rem] lg:w-[21rem]">
-            <Link href={`/destinations/${d.slug}`} className="group block">
-              <Plate image={d.image} ratio="aspect-[4/5]" priority={i === 0} sizes="(min-width: 1024px) 21rem, (min-width: 640px) 19rem, 72vw" imgClassName="transition-transform duration-700 group-hover:scale-[1.03]" />
-              <span className="mt-3 flex items-baseline justify-between gap-3 border-t border-white/30 pt-3">
-                <span className="text-[1.3rem] font-medium leading-tight tracking-[-0.03em] group-hover:underline">{t(d.shortName)}</span>
-                <span className="mono shrink-0 text-[0.7rem] text-white/70">{t(pad(i + 1))}</span>
-              </span>
-              <span className="label mt-1 block text-white/70">{t(d.area)}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="frame pb-5">
+        <div className="flex items-center gap-6">
+          <ul id="hero-strip" className="scroller flex flex-1 gap-5 overflow-x-auto">
+            {journeys.map((j, i) => (
+              <li key={j.slug} className="w-[15.5rem] shrink-0 snap-start border-t border-white/40 pt-3">
+                <Link href={`/journeys/${j.slug}`} className="group grid grid-cols-[6rem_1fr] gap-3">
+                  <Plate image={j.image} ratio="aspect-[3/2]" sizes="6rem" imgClassName="transition-transform group-hover:scale-105" />
+                  <span className="mono text-[0.72rem] leading-snug">
+                    <span className="block">{t(pad(i + 1))}</span>
+                    <span className="mt-3 block group-hover:underline">{t(j.title)}</span>
+                    <span className="block text-white/60">{t(regionNames(j).join(", "))}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <CarouselControls targetId="hero-strip" className="hidden md:flex" />
+        </div>
+      </div>
     </section>
   );
 }

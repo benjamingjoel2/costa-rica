@@ -33,7 +33,7 @@ export default async function PlanPage({ params }: { params: Promise<{ locale: s
         <div className="md:sticky md:top-6">
           <Breadcrumbs items={[{ label: "Plan your trip", href: "/plan" }]} className="mb-6" />
           <DarkChip>{t("Contact us")}</DarkChip>
-          <BoxHeading as="h1" text="Tell Us About Your Trip" size="l" squiggle={3} className="mt-1.5" />
+          <BoxHeading as="h1" text="Tell Us About Your Trip" size="hero-l" squiggle={3} className="mt-1.5" />
           <p className="mt-6 max-w-md text-lead">{t("A few details are all we need to begin. Rough ideas are welcome: part of our job is helping you shape them.")}</p>
           <Doodle name="palm" className="my-10 hidden h-32 w-32 md:block" />
           <p className="label">{t("What happens next")}</p>

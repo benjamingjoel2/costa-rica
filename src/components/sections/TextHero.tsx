@@ -9,7 +9,7 @@ export function TextHero({ kicker, title, intro, crumbs }: { kicker: string; tit
     <header className="frame pb-10 pt-40 md:pt-48">
       <Breadcrumbs items={crumbs} className="mb-6" />
       <DarkChip>{t(kicker)}</DarkChip>
-      <BoxHeading as="h1" text={title} size="l" className="mt-1.5" />
+      <BoxHeading as="h1" text={title} size="hero-l" className="mt-1.5" />
       {intro && <p className="mt-6 max-w-2xl text-lead">{t(intro)}</p>}
     </header>
   );
