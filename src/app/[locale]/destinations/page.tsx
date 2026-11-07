@@ -25,7 +25,7 @@ export default async function DestinationsPage({ params }: { params: Promise<{ l
       <FeatureRows
         left={
           <>
-            <BoxHeading text="Where To Go And Why" size="l" squiggle={2} />
+            <BoxHeading text="Where To Go And Why" size="l" />
             <p className="mt-10 max-w-md text-lead">
               {t("Costa Rica’s mountains split it into regions with their own weather, wildlife and way of life. These guides explain what each is like, who it suits and how it fits into a wider journey.")}
             </p>

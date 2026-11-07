@@ -32,7 +32,7 @@ export default async function JourneysPage({ params }: { params: Promise<{ local
       <FeatureRows
         left={
           <>
-            <BoxHeading text="Routes To Begin A Conversation" size="l" squiggle={3} />
+            <BoxHeading text="Routes To Begin A Conversation" size="l" />
             <p className="mt-10 max-w-md text-lead">
               {t("These journeys show how Costa Rica can fit together. None of them is a package: each is a starting point that we reshape around your dates, your interests and the pace you enjoy.")}
             </p>

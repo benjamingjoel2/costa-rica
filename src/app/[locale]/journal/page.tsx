@@ -24,7 +24,7 @@ export default async function JournalPage({ params }: { params: Promise<{ locale
       <PageHero image="whale" kicker="Notes on travelling Costa Rica well" title="The Journal" short crumbs={[{ label: "Journal", href: "/journal" }]} />
       <section className="bg-paper py-12">
         <div className="frame">
-          <BoxHeading text="Latest Articles" size="m" squiggle={0} />
+          <BoxHeading text="Latest Articles" size="m" />
           <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((a, i) => (
               <li key={a.slug} className={i === 0 ? "md:col-span-2" : ""}>

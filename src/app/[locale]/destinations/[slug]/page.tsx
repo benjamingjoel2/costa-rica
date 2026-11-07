@@ -105,8 +105,6 @@ export default async function DestinationPage({ params }: Props) {
 
       <InfoList
         title="Is It Right For You?"
-        squiggle={3}
-        doodle={d.slug === "caribbean" || d.slug === "nicoya" ? "palm" : d.slug === "osa" || d.slug === "manuel-antonio" ? "binoculars" : "volcano"}
         text={<p>{t(d.tagline)} {t(d.summary)}</p>}
         items={[
           { title: "Who it suits", text: d.suits },
