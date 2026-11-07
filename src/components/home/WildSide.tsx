@@ -1,6 +1,5 @@
 import { BoxButton } from "@/components/kit/BoxButton";
 import { BoxHeading } from "@/components/kit/BoxHeading";
-import { Doodle } from "@/components/kit/Doodle";
 import { Plate } from "@/components/ui/Plate";
 
 import { t } from "@/i18n/server";
@@ -18,14 +17,11 @@ export function WildSide() {
           </BoxButton>
         </div>
       </div>
-      <div className="flex items-center justify-center md:col-span-3">
-        <Doodle name="binoculars" className="h-36 w-36 md:h-44 md:w-44" />
-      </div>
-      <div className="grid grid-cols-2 gap-3 md:col-span-5">
-        <Plate image="toucan" ratio="aspect-[3/4]" sizes="(min-width: 768px) 20vw, 50vw" />
+      <div className="grid grid-cols-2 gap-3 md:col-span-8">
+        <Plate image="toucan" ratio="aspect-[3/4]" sizes="(min-width: 768px) 33vw, 50vw" />
         <div className="grid gap-3">
-          <Plate image="fronds" ratio="aspect-square" sizes="(min-width: 768px) 20vw, 50vw" />
-          <Plate image="canal" ratio="aspect-square" sizes="(min-width: 768px) 20vw, 50vw" />
+          <Plate image="fronds" ratio="aspect-square" sizes="(min-width: 768px) 33vw, 50vw" />
+          <Plate image="canal" ratio="aspect-square" sizes="(min-width: 768px) 33vw, 50vw" />
         </div>
       </div>
     </section>

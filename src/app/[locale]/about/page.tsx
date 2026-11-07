@@ -29,7 +29,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <FeatureRows
         left={
           <>
-            <BoxHeading text="A Small Country That Keeps On Unfolding" size="l" squiggle={4} />
+            <BoxHeading text="A Small Country That Keeps On Unfolding" size="l" />
             <div className="mt-10 max-w-md space-y-4 text-lead">
               <p>
                 {t(site.name)}{t(" plans tailor-made journeys through Costa Rica, and only Costa Rica. Focusing on one country lets us go deeper into its regions, seasons and places to stay.")}
@@ -50,7 +50,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <PhotoStatement image="caribbean" text="Let's Plan Something Good" cta={{ label: "Tell us about your trip", href: "/plan" }} />
       <InfoList
         title="Who We Plan For"
-        doodle="palm"
         text={<p>{t("Travellers who care about the details, and who’d rather have a trip that has been thought through.")}</p>}
         items={[
           { title: "First-time visitors", text: "A balanced route through the country's classic landscapes, without spending the holiday in a car." },

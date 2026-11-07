@@ -121,8 +121,6 @@ export default async function JourneyPage({ params }: Props) {
 
       <InfoList
         title="Good To Know"
-        squiggle={2}
-        doodle="palm"
         text={
           <>
             <p>{t(journey.stays.intro)}</p>

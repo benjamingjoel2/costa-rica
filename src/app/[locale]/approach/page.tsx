@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { BoxButton } from "@/components/kit/BoxButton";
 import { BoxHeading } from "@/components/kit/BoxHeading";
-import { Doodle } from "@/components/kit/Doodle";
 import { InfoList } from "@/components/sections/InfoList";
 import { PageHero } from "@/components/sections/PageHero";
 import { PhotoStatement } from "@/components/sections/PhotoStatement";
@@ -44,8 +43,6 @@ export default async function ApproachPage({ params }: { params: Promise<{ local
 
       <InfoList
         title="What Guides Every Plan"
-        squiggle={2}
-        doodle="leaf"
         text={
           <p>
             {t("A tailor-made trip isn’t a list of famous places. It’s a set of choices about where to go, how to move between them and how to spend each day, made with you rather than for you.")}
@@ -56,7 +53,7 @@ export default async function ApproachPage({ params }: { params: Promise<{ local
 
       <section id="process" aria-labelledby="process-title" className="bg-forest text-white">
         <div className="frame py-12">
-          <BoxHeading id="process-title" text="How Planning Works" size="l" squiggle={2} />
+          <BoxHeading id="process-title" text="How Planning Works" size="l" />
           <p className="mono mt-4 max-w-lg text-[0.8rem] text-white/85">{t("There is no online checkout and no fixed catalogue. Every journey begins with an inquiry.")}</p>
           <ol className="mt-12 grid gap-px md:grid-cols-4">
             {planningSteps.map((s, i) => (
@@ -75,7 +72,6 @@ export default async function ApproachPage({ params }: { params: Promise<{ local
 
       <InfoList
         title="What You Receive"
-        doodle="sun"
         text={
           <p>
             {t("Your proposal is a considered plan, written for you. We explain why we’ve suggested each place, so it’s easy to see what to change. What you won’t receive is a generic package with your name on it, or pressure to decide before you’re ready.")}
@@ -90,7 +86,6 @@ export default async function ApproachPage({ params }: { params: Promise<{ local
         <div className="frame grid gap-10 py-14 md:grid-cols-2">
           <div>
             <BoxHeading id="faq-title" text="Common Questions" size="m" />
-            <Doodle name="toucan" className="mt-10 hidden h-40 w-40 md:block" />
           </div>
           <div className="md:border-l md:border-ink md:pl-5">
             {faqs.map((f) => (

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { BoxHeading } from "@/components/kit/BoxHeading";
 import { DarkChip } from "@/components/kit/Tag";
-import { Doodle } from "@/components/kit/Doodle";
 import { InquiryForm } from "@/components/inquiry/InquiryForm";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { planningSteps } from "@/content/approach";
@@ -33,10 +32,9 @@ export default async function PlanPage({ params }: { params: Promise<{ locale: s
         <div className="md:sticky md:top-6">
           <Breadcrumbs items={[{ label: "Plan your trip", href: "/plan" }]} className="mb-6" />
           <DarkChip>{t("Contact us")}</DarkChip>
-          <BoxHeading as="h1" text="Tell Us About Your Trip" size="hero-l" squiggle={3} className="mt-1.5" />
+          <BoxHeading as="h1" text="Tell Us About Your Trip" size="hero-l" className="mt-1.5" />
           <p className="mt-6 max-w-md text-lead">{t("A few details are all we need to begin. Rough ideas are welcome: part of our job is helping you shape them.")}</p>
-          <Doodle name="palm" className="my-10 hidden h-32 w-32 md:block" />
-          <p className="label">{t("What happens next")}</p>
+          <p className="label mt-10">{t("What happens next")}</p>
           <ol className="mt-3 border-t border-ink">
             {planningSteps.slice(1).map((s, i) => (
               <li key={s.title} className="grid grid-cols-[2.5rem_1fr] gap-2 border-b border-ink py-3">

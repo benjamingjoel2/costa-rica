@@ -1,6 +1,5 @@
 import { BoxButton } from "@/components/kit/BoxButton";
 import { BoxHeading } from "@/components/kit/BoxHeading";
-import { Doodle } from "@/components/kit/Doodle";
 import { Plate } from "@/components/ui/Plate";
 import type { ImageKey } from "@/content/images";
 
@@ -34,9 +33,8 @@ export function ExploreRegions() {
     <section aria-labelledby="regions-title" className="frame py-8">
       <div className="grid gap-10 md:grid-cols-2">
         <div className="flex flex-col">
-          <BoxHeading id="regions-title" text="Explore Our Regions" size="l" squiggle={1} />
-          <Doodle name="volcano" className="mx-auto my-16 h-36 w-36 md:my-auto md:h-44 md:w-44" />
-          <p className="max-w-md text-lead">
+          <BoxHeading id="regions-title" text="Explore Our Regions" size="l" />
+          <p className="mt-8 max-w-md text-lead md:mt-auto md:pt-10">
             {t("From the volcanoes and cloud forests of the north to two very different coastlines, Selvora plans journeys across Costa Rica, shaped around the places that suit you, the season and the way you like to travel.")}
           </p>
         </div>

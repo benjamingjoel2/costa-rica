@@ -43,7 +43,7 @@ export function DiscoverJourneys() {
   return (
     <section aria-labelledby="journeys-title">
       <div className="bg-forest px-4 pb-6 pt-12 text-white">
-        <BoxHeading id="journeys-title" text="Discover Our Journeys" size="xl" squiggle={1} />
+        <BoxHeading id="journeys-title" text="Discover Our Journeys" size="xl" />
         <p className="mono mt-6 max-w-md text-[0.8rem] text-white/85">
           {t("Illustrative routes, not packages. Each one is rebuilt around your dates, interests and pace.")}
         </p>

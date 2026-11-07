@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "@/i18n/Link";
 import { BoxButton } from "@/components/kit/BoxButton";
 import { BoxHeading } from "@/components/kit/BoxHeading";
-import { Doodle } from "@/components/kit/Doodle";
 import { PageHero } from "@/components/sections/PageHero";
 import { PlanBlock } from "@/components/sections/PlanBlock";
 import { Plate } from "@/components/ui/Plate";
@@ -20,7 +19,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-const doodles = ["binoculars", "leaf", "volcano", "palm", "sun", "volcano", "toucan", "sun"] as const;
 
 export default async function ExperiencesPage({ params }: { params: Promise<{ locale: string }> }) {
   setLocale((await params).locale);
@@ -73,7 +71,6 @@ export default async function ExperiencesPage({ params }: { params: Promise<{ lo
                       </dd>
                     </div>
                   </dl>
-                  <Doodle name={doodles[i % doodles.length]} className="hidden h-24 w-24 shrink-0 sm:block" />
                 </div>
               </div>
               <div className={`md:col-span-7 ${i % 2 ? "md:order-1" : ""}`}>
